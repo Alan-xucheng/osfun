@@ -9,7 +9,8 @@ class PublicController extends Controller
 {
     public function getLogin(Request $request) {
         
-        return view('admin.public.login');
+        // return view('admin.public.login');
+        return view('admin.login');
 
     }
     public function postLogin(Request $request) {
@@ -20,7 +21,7 @@ class PublicController extends Controller
         $this->validate($request, $rules);
 
         if (Auth::guard('admin')->attempt($request->only(['email', 'password']), $request->has('remember'))) {
-            return back()->withInput()->withErrors(['password' => ['login successfully']]);
+            return redirect('/admin/home');
         }
         return back()->withInput()->withErrors(['password' => ['login failed']]);
     }

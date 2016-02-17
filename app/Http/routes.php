@@ -29,10 +29,11 @@
  */
 Route::group(['middleware' => ['web', 'auth:admin'], 'prefix' => 'admin', 'namespace' => 'Admin'], function () {
     Route::controller('/project','ProjectController');
-    Route::get('/', function() {
-    
-        return 'this is home of admin. <a href="' . url('admin/public/logout') . '">logout</a>';
-    });
+    Route::controller('/home','AdminController');
+    // Route::get('/', function() {
+    //     return 'this is home of user. <a href="' . url('admin/public/logout') . '">logout</a>';
+    // });
+  
     // your admin routes
 });
 /**
