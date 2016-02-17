@@ -7,6 +7,7 @@ use Auth;
 class PublicController extends Controller
 {
     public function getLogin() {
+
         return view('user.public.login');
     }
     public function postLogin(Request $request) {
@@ -14,6 +15,7 @@ class PublicController extends Controller
             'email' => 'required',
             'password' => 'required'
         ];
+
         $this->validate($request, $rules);
 
         if (Auth::guard('user')->attempt($request->only(['email', 'password']), $request->has('remember'))) {

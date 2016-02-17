@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 /*
 |--------------------------------------------------------------------------
@@ -30,7 +28,9 @@ Route::get('/', function () {
  * 当访问admin/...时，如果未验证则跳转至admin/public/login
  */
 Route::group(['middleware' => ['web', 'auth:admin'], 'prefix' => 'admin', 'namespace' => 'Admin'], function () {
+    Route::controller('/project','ProjectController');
     Route::get('/', function() {
+    
         return 'this is home of admin. <a href="' . url('admin/public/logout') . '">logout</a>';
     });
     // your admin routes
@@ -39,12 +39,17 @@ Route::group(['middleware' => ['web', 'auth:admin'], 'prefix' => 'admin', 'names
  * 当访问user/...时，如果未验证则跳转至user/public/login
  */
 Route::group(['middleware' => ['web', 'auth:user'], 'prefix' => 'user', 'namespace' => 'User'], function () {
+    Route::controller('/show','ShowController');
     Route::get('/', function() {
         return 'this is home of user. <a href="' . url('user/public/logout') . '">logout</a>';
     });
     // your user routes
 });
 Route::group(['middleware' => 'web'], function() {
+    Route::get('/', function () {
+        
+        return view('welcome');
+    });
     Route::auth();
     Route::controllers([
         'admin/public' => 'Admin\PublicController',
