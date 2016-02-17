@@ -3,6 +3,7 @@ namespace App\Http\Controllers\User;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Auth;
 class PublicController extends Controller
 {
     public function getLogin() {
@@ -15,13 +16,13 @@ class PublicController extends Controller
         ];
         $this->validate($request, $rules);
 
-        if (\Auth::guard('user')->attempt($request->only(['email', 'password']), $request->has('remember'))) {
+        if (Auth::guard('user')->attempt($request->only(['email', 'password']), $request->has('remember'))) {
             return back()->withInput()->withErrors(['password' => ['login successfully']]);
         }
         return back()->withInput()->withErrors(['password' => ['login failed']]);
     }
     public function getLogout() {
-        \Auth::guard('user')->logout();
+        Auth::guard('user')->logout();
         return redirect('user/public/login');
     }
 }

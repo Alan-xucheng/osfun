@@ -45,6 +45,7 @@ Route::group(['middleware' => ['web', 'auth:user'], 'prefix' => 'user', 'namespa
     // your user routes
 });
 Route::group(['middleware' => 'web'], function() {
+    Route::auth();
     Route::controllers([
         'admin/public' => 'Admin\PublicController',
         'user/public' => 'User\PublicController',
