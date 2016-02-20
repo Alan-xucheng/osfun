@@ -35,7 +35,9 @@
         </section>
 
         <!-- Main content -->
-        <section class="content">
+        <section class="content" style="min-height: 800px;">
+
+        <form id="ArticleForm" action="/admin/article/api-save" method="post"> 
           <div class="row">
             <!-- left column -->
       		<div class="col-md-9">
@@ -47,21 +49,21 @@
       		      <h3 class="box-title">General Elements</h3>
       		    </div><!-- /.box-header --> 
       		    <div class="box-body">
-      		      <form role="form">
+      		     
       		        <!-- text input -->
       		        <div class="form-group">
       		          <label>文章标题</label>
-      		          <input type="text" class="form-control" placeholder="在此输入文章标题">
+      		          <input type="text" class="form-control" placeholder="在此输入文章标题" name="title">
       		        </div>
       		      	<div class="box" style="border-top: none;box-shadow: none;">
       		      	
       		      	  <div class="box-body pad">
       		      	 
-      		      	      <textarea class="textarea" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+      		      	      <textarea class="textarea" name="content" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
       		      	    
       		      	  </div>
       		      	</div>
-      		      </form>
+      		    
       		    </div><!-- /.box-body -->
       		  </div><!-- /.box -->
       		</div>
@@ -77,19 +79,19 @@
 	                <div class="box-body" style="display: block;">
 		                  <div class="form-group">
 		                       <label>
-		                         <input type="radio" name="r3" class="flat-red">
+		                         <input type="radio" name="modus" value="normal" class="flat-red">
 		                         <i class="fa fa-fw fa-book"></i>标准
 		                       </label>
 	                      </div>
       	                  <div class="form-group">
       	                       <label>
-      	                         <input type="radio" name="r3" class="flat-red">
+      	                         <input type="radio" name="modus" value="picture" class="flat-red">
       	                         <i class="fa fa-fw fa-file-image-o"></i>图像
       	                       </label>
                             </div>
     	                  	<div class="form-group">
     	                       <label>
-    	                         <input type="radio" name="r3" class="flat-red">
+    	                         <input type="radio" name="modus" value="movie" class="flat-red">
     	                         <i class="fa fa-fw fa-video-camera"></i>视频
     	                       </label>
                           	</div>
@@ -109,47 +111,101 @@
 	                </div>
 	                <div class="box-body" style="display: block;">
 	                	<div class="clearfix">
-		                	<a class="btn btn-default pull-left">
+		                	<a class="btn btn-default pull-left" id="handleSaveDra">
 			                    <i class="fa fa-edit"></i> 草稿
 			                </a>
-			                <a class="btn btn-default pull-right">
-		                    	<i class="fa fa-send"></i> 发布
+			                <a class="btn btn-default pull-right"  id="handleSavePub">
+		                    	<i class="fa fa-send" ></i> 发布
 		                 	</a>
 	                 	</div>
 	 	                <ul class="list-group list-group-unbordered" style="margin-top: 5px;">
 	                        <li class="list-group-item" style="border:none;">
-	                          <i class="fa fa-key text-red"></i> 状态：&nbsp;&nbsp;<span>状态&nbsp;&nbsp;<a href="#" class="show-li1">编辑</a></span>
+	                          <i class="fa fa-key text-red"></i> 状态：&nbsp;&nbsp;<span><span id="currentStatus">草稿</span>&nbsp;&nbsp;<a href="#" class="show-li1">编辑</a></span>
 	                        </li>
 	                        <li class="list-group-item li-1" style="border:none;display: none;">
 		                         <div class="form-group">
-		                             <select class="form-control select2" style="width:40%;display: inline-block;">
-		                               <option selected="selected">草稿</option>
-		                               <option>等待审核</option>
+		                             <select id="status" class="form-control select2" name="status" style="width:40%;display: inline-block;">
+		                               <option selected="selected" value="draft">草稿</option>
+		                               <option value="waitCheck">等待审核</option>
 		                              
 		                             </select>
-		                             <a class="btn btn-default" >确定</a><a href="javascript:;" class="hide-li1">&nbsp;&nbsp;取消 </a>
+		                             <a class="btn btn-default subBtn">确定</a><a href="javascript:;" class="hide-li1">&nbsp;&nbsp;取消 </a>
 		                         </div>
 	                        </li>
 	                        <li class="list-group-item" style="border:none;">
-	                          <i class="fa fa-eye text-green"></i> 公开度：&nbsp;&nbsp;<span>编辑&nbsp;&nbsp;<a href="#" class="show-li2">编辑</a></span>
+	                          <i class="fa fa-eye text-green"></i> 公开度：&nbsp;&nbsp;<span><span id="currentType">公开</span>&nbsp;&nbsp;<a href="#" class="show-li2">编辑</a></span>
 	                        </li>
                             <li class="list-group-item li-2" style="border:none;display: none;">
     	                         <div class="form-group">
-    	                             <select class="form-control select2" style="width:40%;display: inline-block;">
-    	                               <option selected="selected">公开</option>
-    	                               <option>私密</option>
+    	                             <select id="type" class="form-control select2" name="type" style="width:40%;display: inline-block;">
+    	                               <option selected="selected" value="publish">公开</option>
+    	                               <option value="secret">私密</option>
     	                              
     	                             </select>
-    	                             <a class="btn btn-default" >确定</a><a href="javascript:;" class="hide-li2">&nbsp;&nbsp;取消 </a>
+    	                             <a class="btn btn-default subBtn">确定</a><a href="javascript:;" class="hide-li2">&nbsp;&nbsp;取消 </a>
     	                         </div>
                             </li>
                     	</ul>
 	                </div><!-- /.box-body -->
 	          	</div>
 	        </div>
+                  <!-- right column -->
+          <div class="col-md-3 col-md-offset-9">
+            <div class="box box-solid">
+                  <div class="box-header with-border">
+                    <h3 class="box-title">分类目录</h3>
+                    <div class="box-tools">
+                      <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    </div>
+                  </div>
+                  <div class="box-body" style="display: block;">
+                   <div class="nav-tabs-custom">
+                                   <ul class="nav nav-tabs">
+                                     <li class="active" style="width: 25%;text-align: center;"><a href="#tab_1" data-toggle="tab" aria-expanded="false">所有</a></li>
+                                     <li class="" style="width: 25%;text-align: center;"><a href="#tab_2" data-toggle="tab" aria-expanded="false">最常用</a></li>
+                                     
+                                   </ul>
+                                   <div class="tab-content">
+                                     <div class="tab-pane active" id="tab_1">
+                                        @foreach($category as $cat)
+                                        <div class="form-group">
+                                           <label>
+                                             <input type="checkbox" name="category" value="{{$cat->id}}" class="minimal">
+                                             &nbsp;{{$cat->name}}
+                                           </label>
+                                         
+                                        </div>
+                                        @endforeach
+                                       
+                                     </div><!-- /.tab-pane -->
+                                     <div class="tab-pane" id="tab_2">
+                                      <div class="form-group">
+                                          <label>
+                                            <input type="checkbox" name="category" class="minimal">
+                                            &nbsp;标准
+                                          </label>
+                                        
+                                       </div>
+                                       <div class="form-group">
+                                          <label>
+                                            <input type="checkbox" name="catrgory" class="minimal">
+                                            &nbsp;新闻
+                                          </label>
+                                        
+                                       </div>
+                                     </div><!-- /.tab-pane -->
+                         
+                                   </div><!-- /.tab-content -->
+                                 </div>
+                  </div><!-- /.box-body -->
+              </div>
+          </div>
+
 	        
 	        <!--/.col (right) -->
           </div>   <!-- /.row -->
+
+          </form>
         </section><!-- /.content -->
       </div>
 @endsection
@@ -161,37 +217,70 @@
 <script src="/plugins/iCheck/icheck.min.js"></script>
 <script>
   $(function () {
+    //submit
+
+    $('#handleSavePub').click(function(){
+        var data = $('#ArticleForm').serialize();
+        $.ajax({
+          type:"POST",
+          url:'/admin/article/api-save',
+          data: data,
+          success:function(res){
+            console.log(res);
+          },
+          error:function(res){
+            console.log(res);
+          }
+        })
+    });
+    //编辑改变状态文字
+    function currentStatus(obj1,obj2,obj3){
+      $('.subBtn').click(function(){
+
+        var data = $(obj1+' option:selected').html();
+
+        $(obj2).html(data);
+        $(this).parents('li').slideUp();
+          setTimeout(function(){
+            $(obj3).show();
+          },300)
+
+      })
+    }
+
+    currentStatus('#status','#currentStatus','.show-li1');
+    currentStatus('#type','#currentType','.show-li2');
+
+   
+
+
+
+
 
   	//编辑 隐藏显示li
   	function _showLi(obj){
   		$(obj).click(function(){
   			$(this).parents('li').next('li').slideDown();
   			$(this).hide();
+        return false;
   		})
   	}
   	_showLi('.show-li1');
   	_showLi('.show-li2'); 
 
-  	function _hideLi(obj){
-  		$(obj).click(function(){
+  	function _hideLi(obj1,obj2){
+  		$(obj1).click(function(){
   			$(this).parents('li').slideUp();
-  		})
-  	}
-  	$('.hide-li1').click(function(){
-  		$('.li-1').slideUp();
-  		setTimeout(function(){
-  			$('.show-li1').show();
-  		},300);
-  	});
-  	$('.hide-li2').click(function(){
-  		$('.li-2').slideUp();
-  		setTimeout(function(){
-  			$('.show-li2').show();
-  		},300);
-  	});
+        setTimeout(function(){
+          $(obj2).show();
+        },300)
 
-    // Replace the <textarea id="editor1"> with a CKEditor
-    // instance, using default configuration.
+  		})
+      
+  	}
+    _hideLi('.hide-li1','.show-li1');
+    _hideLi('.hide-li2','.show-li2');
+
    
     //bootstrap WYSIHTML5 - text editor
     $(".textarea").wysihtml5();

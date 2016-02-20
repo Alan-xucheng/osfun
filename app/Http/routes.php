@@ -28,6 +28,7 @@
  * 当访问admin/...时，如果未验证则跳转至admin/public/login
  */
 Route::group(['middleware' => ['web', 'auth:admin'], 'prefix' => 'admin', 'namespace' => 'Admin'], function () {
+    
     Route::controller('/project','ProjectController');
     Route::controller('/home','AdminController');
     Route::controller('/article','ArticleController');

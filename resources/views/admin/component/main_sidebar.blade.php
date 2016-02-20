@@ -42,7 +42,7 @@
               <ul class="treeview-menu">
                 <li class="{{_IS_ACTIVE(url('/admin/article'))}}"><a href="/admin/article"><i class="fa fa-circle-o"></i> 所有文章</a></li>
                 <li class="{{_IS_ACTIVE(url('/admin/article/create'))}}"><a href="/admin/article/create"><i class="fa fa-circle-o"></i> 写文章</a></li>
-                <li><a href="../layout/fixed.html"><i class="fa fa-circle-o"></i>分类目录</a></li>
+                <li class="{{_IS_ACTIVE(url('/admin/article/category'))}}"><a href="/admin/article/category"><i class="fa fa-circle-o"></i>分类目录</a></li>
                 <li><a href="collapsed-sidebar.html"><i class="fa fa-circle-o"></i>标签</a></li>
               </ul>
             </li>
