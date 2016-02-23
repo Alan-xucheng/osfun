@@ -12,7 +12,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="/dist/font-awesome/css/font-awesome.css">
     <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="/libs/ionicons-2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="/dist/css/AdminLTE.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins

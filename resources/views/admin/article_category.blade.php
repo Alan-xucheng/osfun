@@ -116,8 +116,39 @@
 	                      <td><span class="badge bg-blue">55</span></td>
 	                    </tr>
 	                    @endforeach
+                           <tr>
+                          <th style="width: 20px">
+                      <div class="form-group">
+                              <label>
+                                <input type="checkbox"  class="minimal" id="all">                           
+                              </label>
+                        </div>
+                          </th>
+                          <th>名称</th>
+                          <th>别名</th>
+                          <th style="width: 40px">总数</th>
+                      </tr>
      
                   </tbody></table>
+                  <div style="margin-top: 10px;">
+
+                  <div class="form-group">
+                    
+                    <div class="col-sm-3" style="padding-left: 0;">
+                      <select class="form-control">
+                        <option>批量操作</option>
+                        <option>删除</option>
+                      </select>
+                    </div>
+                 
+                      <button class="btn btn-default">应用</button>
+                 
+                    
+                  </div>
+
+                    
+                  </div>
+              
                 </div><!-- /.box-body -->
                 <div class="box-footer clearfix">
                   <ul class="pagination pagination-sm no-margin pull-right">
@@ -130,12 +161,7 @@
                 </div>
           
               </div>
-      		</div>
-      
-         
-     
-
-	        
+      		</div>      
 	        <!--/.col (right) -->
           </div>   <!-- /.row -->
 
@@ -206,7 +232,7 @@
     //Flat red color scheme for iCheck
     $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
       checkboxClass: 'icheckbox_flat-green',
-      radioClass: 'iradio_flat-green'
+      radioClass: 'iradio_flat-green' 
     });
 
    
