@@ -156,6 +156,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\ToolServiceProvider::class,
+        Laravel\Cashier\CashierServiceProvider::class,
 
     ],
 
