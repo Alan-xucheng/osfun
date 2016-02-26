@@ -28,17 +28,17 @@
  * 当访问admin/...时，如果未验证则跳转至admin/public/login
  */
 Route::group(['middleware' => ['web', 'auth:admin'], 'prefix' => 'admin', 'namespace' => 'Admin'], function () {
-    
-    Route::controller('/project','ProjectController');
-    Route::controller('/home','AdminController');
-    Route::controller('/article','ArticleController');
-      Route::get('/', function() {
-        return 'this is home of user. <a href="' . url('user/public/logout') . '">logout</a>';
+    Route::controllers([
+        '/project' => 'ProjectController',
+        '/home' => 'AdminController',
+        '/article' =>'ArticleController',
+    ]);
+
+
+    Route::get('/', function() {
+        return 'this is home of user. <a href="' . url('admin/public/logout') . '">logout</a>';
     });
-    // Route::get('/', function() {
-    //     return 'this is home of user. <a href="' . url('admin/public/logout') . '">logout</a>';
-    // });
-  
+   
     // your admin routes
 });
 /**

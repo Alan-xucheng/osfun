@@ -24,7 +24,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-            分类目录
+            分类目录(测试)
             <small>Preview</small>
           </h1>
           <ol class="breadcrumb">

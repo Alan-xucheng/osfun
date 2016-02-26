@@ -11,6 +11,7 @@ use App\Article;
 use App\category;
 use App\ArticleAttach;
 use Redis;
+use Mail;
 class ArticleController extends Controller
 {
     //

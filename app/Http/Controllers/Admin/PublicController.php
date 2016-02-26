@@ -26,6 +26,7 @@ class PublicController extends Controller
         return back()->withInput()->withErrors(['password' => ['login failed']]);
     }
     public function getLogout() {
+   
         Auth::guard('admin')->logout();
         return redirect('admin/public/login');
     }
