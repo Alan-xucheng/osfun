@@ -161,7 +161,7 @@ if(! function_exists('_IS_ACTIVE')){
         if($url == $ret){
             return 'active';
         }else{
-            return $ret;
+            return "";
         }
 
     }

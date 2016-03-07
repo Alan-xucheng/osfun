@@ -12,15 +12,20 @@ use App\category;
 use App\ArticleAttach;
 use Redis;
 use Mail;
+use Session;
+
+
 class ArticleController extends Controller
 {
-    //
-    public function getIndex(){
 
-    	
-    	return view('admin.article');
+    public function getIndex(){
+   
+       
+    	// echo a::b;	
+    return view('admin.article');
 
     }
+
  	
  	public function getCreate(){
 
@@ -107,10 +112,6 @@ class ArticleController extends Controller
 
  			Redis::hset('post:'.$postId.":name","name",Request::input('name'));
  			Redis::hset('post:'.$postId.":slug","slug",Request::input('slug'));
-
-
- 			
-
 
  			return  Tool::json_return(0,"ok");
 

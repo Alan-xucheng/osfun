@@ -1,66 +1,59 @@
-@extends('layouts.app')
+@extends('user.layout.layout')
+
+
+@section('breadcrumbs')
+    <div class="breadcrumbs">
+        <div class="container">
+            <h1 class="pull-left">Login</h1>
+            <ul class="pull-right breadcrumb">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="">Pages</a></li>
+                <li class="active">Login</li>
+            </ul>
+        </div><!--/container-->
+    </div><!--/breadcrumbs-->
+
+@endsection
+
+
+
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Login</div>
-                <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" >
-                        {!! csrf_field() !!}
+    <div class="container content">
+    	<div class="row">
+            <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+                <form class="reg-page form-horizontal" role="form" method="POST" > 
+                {!! csrf_field() !!}
+                    <div class="reg-header">
+                        <h2>加入我们</h2>
+                    </div>
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">E-Mail Address</label>
+                    <div class="input-group margin-bottom-20">
+                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                        <input type="text" placeholder="email" name="email" value="{{old('email')}}" class="form-control">
+                    </div>
+                    <div class="input-group margin-bottom-20">
+                        <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                        <input type="password" placeholder="密码" name="password" class="form-control">
+                    </div>
 
-                            <div class="col-md-6">
-                                <input type="email" class="form-control" name="email" value="{{ old('email') }}">
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
+                    <div class="row">
+                        <div class="col-md-6 checkbox">
+                            <label><input type="checkbox" name="remember"> Stay signed in</label>
                         </div>
-
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">Password</label>
-
-                            <div class="col-md-6">
-                                <input type="password" class="form-control" name="password">
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
+                        <div class="col-md-6">
+                            <button class="btn-u pull-right" type="submit">登入</button>
                         </div>
+                    </div>
 
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="remember"> Remember Me
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
+                    <hr>
 
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fa fa-btn fa-sign-in"></i>Login
-                                </button>
-
-                                <a class="btn btn-link" href="{{ url('/password/reset') }}">Forgot Your Password?</a>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+                    <h4>Forget your Password ?</h4>
+                    <p>no worries, <a class="color-green" href="{{ url('/password/reset') }}">click here</a> to reset your password.</p>
+                     <h4>没有账号 ?</h4>
+                    <p>no worries, <a class="color-green" href="{{url('user/public/register')}}">click here</a> 注册新账号</p>
+                </form>
             </div>
-        </div>
-    </div>
-</div>
-@endsection
+        </div><!--/row-->
+    </div><!--/container-->
+@endsection    

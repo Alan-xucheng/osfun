@@ -17,7 +17,18 @@ class Authenticate
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        $redirect = 'admin' == $guard ? 'admin/public/login' : 'user/public/login';
+        if($redirect = 'admin' == $guard ){
+
+            $redirect = 'admin/public/login';
+
+        }elseif ($redirect = 'user' == $guard ) {
+            
+            $redirect = 'user/public/login';
+
+        }else{
+            $redirect = 'service/public/login';
+        }
+        //$redirect = 'admin' == $guard ? 'admin/public/login' : 'user/public/login';
         if (Auth::guard($guard)->guest()) {
             if ($request->ajax()) {
                 return response('Unauthorized.', 401);

@@ -45,22 +45,35 @@ Route::group(['middleware' => ['web', 'auth:admin'], 'prefix' => 'admin', 'names
  * 当访问user/...时，如果未验证则跳转至user/public/login
  */
 Route::group(['middleware' => ['web', 'auth:user'], 'prefix' => 'user', 'namespace' => 'User'], function () {
-    Route::controller('/show','ShowController');
+
+   Route::controllers([
+        '/show' => 'ShowController',
+        '/home' => 'HomeController',
+        '/api' =>'ApiController',
+     
+    ]);
     Route::get('/', function() {
         return 'this is home of user. <a href="' . url('user/public/logout') . '">logout</a>';
     });
     // your user routes
 });
-Route::group(['middleware' => 'web'], function() {
-    Route::get('/', function () {
-        
-        return view('welcome');
+
+Route::group(['middleware' => ['web', 'auth:service'], 'prefix' => 'service', 'namespace' => 'Service'], function () {
+    Route::controller('/home','ServiceController');
+       Route::get('/', function() {
+        return 'this is home of user. <a href="' . url('service/public/logout') . '">logout</a>';
     });
+    // your user routes
+});
+Route::group(['middleware' => 'web'], function() {
+    Route::get('/','Publish\HomeController@getIndex');
     Route::auth();
     Route::controllers([
         'admin/public' => 'Admin\PublicController',
         'user/public' => 'User\PublicController',
+        'service/public' => 'Service\PublicController',
+        'academy' => 'Publish\AcademyController',
+        'view' => 'Publish\ViewController',
     ]);
-    // your public routes
 });
 

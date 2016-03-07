@@ -11,20 +11,23 @@ class PublicController extends Controller
         return view('user.public.login');
     }
     public function postLogin(Request $request) {
-        $rules = [
-            'email' => 'required',
-            'password' => 'required'
-        ];
+       $rules = [
+           'email' => 'required',
+           'password' => 'required'
+       ];
+       $this->validate($request, $rules);
 
-        $this->validate($request, $rules);
-
-        if (Auth::guard('user')->attempt($request->only(['email', 'password']), $request->has('remember'))) {
-            return back()->withInput()->withErrors(['password' => ['login successfully']]);
-        }
-        return back()->withInput()->withErrors(['password' => ['login failed']]);
+       if (Auth::guard('user')->attempt($request->only(['email', 'password']), $request->has('remember'))) {
+           return redirect('/user/home/profile');
+       }
+       return back()->withInput()->withErrors(['password' => ['login failed']]);
     }
     public function getLogout() {
         Auth::guard('user')->logout();
         return redirect('user/public/login');
+    }
+    public function getRegister(){
+
+        return view('user.public.register');
     }
 }
