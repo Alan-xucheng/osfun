@@ -2,13 +2,11 @@
 
 @section('styles')
 <link rel="stylesheet" href="/assets/plugins/fancybox/source/jquery.fancybox.css">
-<link rel="stylesheet" href="/assets/plugins/sky-forms-pro/skyforms/css/sky-forms.css">
-<link rel="stylesheet" href="/assets/plugins/sky-forms-pro/skyforms/custom/custom-sky-forms.css">
+
 @endsection
 
 
 @section('breadcrumbs')
-
 <div class="breadcrumbs breadcrumbs-dark">
         <div class="container">
             <h1 class="pull-left">网红学院</h1>

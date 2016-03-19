@@ -12,12 +12,21 @@ use Tool;
 use App\UserSkills as Skills;
 use App\UserExtra ;
 use App\Tag;
+use Storage;
 use App\TagMap;
 use App\Demand;
+use App\Album;
+use App\Category;
+use App\AlbumCover;
+use App\UserLike;
+use App\CommentList;
 class ApiController extends Controller
 {
     //
     //
+    public function postTest(){
+        return Request::all();
+    }
     public function postApiSocial(){
 
     	$user_id = Request::input('user_id');
@@ -122,10 +131,7 @@ class ApiController extends Controller
     }
     public function postApiDemand(){
 
-    	$title = Request::input('title');
-    	$start_time = Request::input("start_time");
-    	$end_time = Request::input("end_time");
-    	$end_time = Request::input("end_time");
+
     	$tags = Request::input("tags");
     	$desc = Request::input('desc');
     	$content = Request::input('content');
@@ -133,12 +139,10 @@ class ApiController extends Controller
     	// 储存需求
     	$demand = new Demand();
 
-    	$demand ->title = $title;
     	$demand ->user_id = $user_id;
     	$demand ->tags = $tags;
-    	$demand ->start_time = strtotime($start_time);
-    	$demand ->end_time =strtotime($end_time);
-    	$demand ->desc = $desc;
+ 
+    
     	$demand ->content = $content;
 
     	$demand->save();
@@ -157,7 +161,7 @@ class ApiController extends Controller
     		foreach ($tags as $k => $v) {
     			
     			$tag = Tag::firstOrCreate(['tag_name'=>$v]);
-    			$tag->increment('num');
+                $tag->increment('num');
 
     			$map = new TagMap();
     			$map->tag_id = $tag->id;
@@ -170,11 +174,76 @@ class ApiController extends Controller
 
 
     }
+    public function postSaveAlbum(){
+
+        $user_id = Auth::guard('user')->user()->id;
+
+        $content = Request::input('content');
+
+        $cover_id = Request::input('cover_id');
+
+        $album = Album::firstOrCreate(['cover_id'=>$cover_id]);
+
+        $album->content = $content;
+
+        $album->save();
+
+        $cover = AlbumCover::find($cover_id);
+
+        $cover->desc = strip_tags(mb_substr($content,0,100));
+
+        $cover->post_time = time();
+
+        $cover->save();
+
+        return Tool::json_return(0,$cover);
+
+    }
+    public function postDelAlbum(){
+
+        $album_id = Request::input('album_id');
+
+        if(empty($album_id)){
+
+            Tool::json_return(-1,'false');
+        }
+        Album::where('cover_id',$album_id)->delete();
+
+        $cover = AlbumCover::find($album_id);
+
+        $url = parse_url($cover->img);
+        
+        Storage::delete($url['path']);
+        
+        $cover->delete();
+
+        return Tool::json_return(0,'success');
+
+    }
+    public function postDelDemand(){
+
+        $demand_id = Request::input('demand_id');
+
+
+        if(empty($demand_id)){
+
+            Tool::json_return(-1,'false');
+        }
+
+        Demand::find($demand_id)->delete();
+
+        return Tool::json_return(0,'success');
+
+    }
+
+
     public function postApiImage(){
 
 
-    	// return Request::all();
+    	//
     	   $encoded = Request::input('image-data');
+
+
 
     	   //decode the url, because we want to use decoded characters to use explode
     	   // $decoded = urldecode($encoded);
@@ -215,6 +284,310 @@ class ApiController extends Controller
 
     	   
     }
+    public function img_base64($encoded){
+
+          //explode at ',' - the last part should be the encoded image now
+               $exp = explode(',', $encoded);
+
+               //we just get the last element with array_pop
+               $base64 = array_pop($exp);
+
+
+               //decode the image and finally save it
+               $data = base64_decode($base64);
+
+
+               $file_name = uniqid(time());
+
+               $fileDir = Tool::_get_file_path();
+
+               $url = $fileDir.$file_name.'.jpg';   
+               // return $url;
+            
+
+
+               //make sure you are the owner and have the rights to write content
+               $a = file_put_contents("./".$url, $data);
+
+               if($a){
+
+                    return url($url);
+               }
+
+               
+
+    }
+    public function postApiCover(){
+
+
+
+               $cover_id = Request::input('cover'); 
+                
+               $encoded = Request::input('image-data');
+
+               $title = Request::input('title');
+
+               //decode the url, because we want to use decoded characters to use explode
+               // $decoded = urldecode($encoded);
+
+               //explode at ',' - the last part should be the encoded image now
+               $exp = explode(',', $encoded);
+
+               //we just get the last element with array_pop
+               $base64 = array_pop($exp);
+
+
+               //decode the image and finally save it
+               $data = base64_decode($base64);
+
+
+               $file_name = uniqid(time());
+
+               $fileDir = Tool::_get_file_path();
+
+               $url = $fileDir.$file_name.'.jpg';   
+               // return $url;
+            
+
+
+               //make sure you are the owner and have the rights to write content
+               $a = file_put_contents("./".$url, $data);
+
+               if($a){
+
+                   $cover = AlbumCover::find($cover_id);
+
+                   $cover->img = url($url);
+
+                   $cover->title = $title;
+
+                   $cover->status = "publish";
+
+
+                   $cover->save();
+               }
+
+               return Tool::json_return(0,url($url));
+
+               
+        }
+
+    public function postCoverInfo(){
+
+            $cover_id = Request::input('cover_id');
+
+            return AlbumCover::find($cover_id);
+        }
+
+    public function postAddPraise(){
+
+            $user_id = Auth::guard('user')->user()->id;
+            if(empty($user_id)){
+                return Tool::json_return(-1,'login falis');
+            }
+            $table = Request::input('table');
+            $post_id = Request::input('post_id');
+
+            if($table=='album'){
+                //CHECK STATUS
+                $like = UserLike::where('user_id',$user_id)->where('post_id',$post_id)->where('table','album')->first();
+
+                if(!empty($like)){
+                    return Tool::json_return(-2,'exist log');
+                }else{
+                    AlbumCover::find($post_id)->increment('praise_num');
+
+                    $like = new UserLike();
+                    $like->user_id = $user_id;
+                    $like->table = "album";
+                    $like->post_id = $post_id;
+                    $like->save();
+
+                    return Tool::json_return(0,'ok');
+                }
+            
+                
+            }
+          
+
+
+
+            
+        }
+
+    public function postDelPraise(){
+
+            $user_id = Auth::guard('user')->user()->id;
+            if(empty($user_id)){
+                return Tool::json_return(-1,'login falis');
+            }
+            $table = Request::input('table');
+            $post_id = Request::input('post_id');
+
+            if($table=='album'){
+                //CHECK STATUS
+                $like = UserLike::where('user_id',$user_id)->where('post_id',$post_id)->where('table','album')->delete();
+                AlbumCover::find($post_id)->decrement('praise_num');
+
+                
+                return Tool::json_return(0,'ok');
+                
+            }
+        }
+
+    public function postAddComment(){
+
+            $post_id = Request::input('post_id');
+
+            $content = Request::input('content');
+
+            $user_id = Auth::guard('user')->user()->id;
+
+            $comment = new CommentList();
+
+            $comment->content = $content;
+            $comment->post_id = $post_id;
+            $comment->user_id = $user_id;
+            $comment->table = "album";
+
+            $comment->save();
+
+            return Tool::json_return(0,'ok');
+
+        }
+    public function postReplyComment(){
+
+            $post_id = Request::input('post_id');
+
+            $content = Request::input('content');
+
+            $user_id = Auth::guard('user')->user()->id;
+
+            $reply_id = Request::input('reply_id');
+
+            $comment = new CommentList();
+
+            $comment->content = $content;
+            $comment->post_id = $post_id;
+            $comment->user_id = $user_id;
+            $comment->ref = $reply_id;
+            $comment->table = "album";
+
+            $comment->save();
+
+            return Tool::json_return(0,'ok');
+
+
+        }
+
+    public function postDelComment(){
+
+            $user_id  = Auth::guard('user')->user()->id;
+
+            $comment_id = Request::input('comment_id');
+
+            $comment = CommentList::find($comment_id);
+
+            if($comment->user_id != $user_id){
+
+                return Tool::json_return(-1,'no permission');
+            }
+            else{
+                $comment->delete();
+
+                return Tool::json_return(0,'ok');
+            }
+        }
+    public function postUpdateProfile(){
+            $user_id = Auth::guard('user')->user()->id;
+            $sex = Request::input('sex');
+            $nickname = Request::input('nickname');
+            $year = Request::input('year');
+            $month = Request::input('month');
+            $day = Request::input('day');
+            $sign = Request::input('sign');
+            $province = Request::input('province');
+            $city = Request::input('city');
+            $country = Request::input('country');
+            $birth = strtotime($year.'-'.$month.'-'.$day);
+
+            $extra = UserExtra::firstOrCreate(['user_id'=>$user_id]);
+
+            $extra->user_id = $user_id;
+            $extra->nickname = $nickname;
+            $extra->birth = $birth;
+            $extra->sex = $sex;
+            $extra->sign = $sign;
+            $extra->province = $province;
+            $extra->city = $city;
+            $extra->country = $country;
+
+            $extra->save();
+
+            return Tool::json_return(0,'ok');
+            
+        }
+
+    public function postCreateVideo(){
+
+
+            $cover = new AlbumCover();
+            $user_id = Auth::guard('user')->user()->id;
+            $type = Request::input('type');
+            $encoded  = Request::input('image-data');
+            $url = $this->img_base64($encoded);
+            $title = Request::input('title');
+            $medium = Request::input('medium');
+            $desc = Request::input('desc');
+            $src = Request::input('src');
+
+            $parent = Request::input('parent');
+
+            $child = Request::input('child');
+
+            $pid = Category::where('name',$parent)->pluck('id');
+
+            $cate = Category::where('name',$child)->where('parent',$pid)->first();
+
+
+
+            if($medium =='src'){
+
+                $cover->user_id = $user_id;
+
+                $cover->category = $cate->id;
+
+                $cover->medium = $medium;
+
+                $cover->type = $type;
+
+                $cover->title = $title;
+
+                $cover->img = $url;
+
+                $cover->post_time = time();
+
+                $cover->desc = $desc;
+
+                $cover->status = 'publish';
+
+                $cover->save();
+
+            }
+
+            $album = new Album();
+
+            $album->cover_id = $cover->id;
+
+            $album->medium = $medium;
+
+            $album->src = $src;
+
+            $album->save();
+
+            return Tool::json_return(0,'ok');  
+          
+        }
 
 
 
@@ -222,7 +595,13 @@ class ApiController extends Controller
 
 
 
+    public function postVideoUpload(){
 
+
+            $result = Tool::_upload_file('file','file');
+
+            return $result['url'];
+        }
 
 
 

@@ -16,12 +16,12 @@ class CreateUserExtrasTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->string('nickname');
-            $table->integer('age');    
+            $table->integer('birth');    
             $table->string('sex');
-            $table->text('desc');
+            $table->text('sign');
             $table->string('province');
             $table->string('city');
-            $table->string('county');
+            $table->string('country');
             $table->timestamps();
         });
     }

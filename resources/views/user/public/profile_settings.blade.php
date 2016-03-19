@@ -4,8 +4,7 @@
 
 <link rel="stylesheet" href="/assets/css/pages/profile.css">
 <link rel="stylesheet" href="/assets/plugins/scrollbar/css/jquery.mCustomScrollbar.css">
-<link rel="stylesheet" href="/assets/plugins/sky-forms-pro/skyforms/css/sky-forms.css">
-<link rel="stylesheet" href="/assets/plugins/sky-forms-pro/skyforms/custom/custom-sky-forms.css">
+
 @endsection
 
 @section('content')
@@ -20,119 +19,189 @@
                 <div class="profile-body margin-bottom-20">
                     <div class="tab-v1">
                         <ul class="nav nav-justified nav-tabs">
-                            <li class="active"><a data-toggle="tab" href="#profile">Edit Profile</a></li>
-                            <li><a data-toggle="tab" href="#passwordTab">Change Password</a></li>
-                            <li><a data-toggle="tab" href="#payment">Payment Options</a></li>
-                            <li><a data-toggle="tab" href="#settings">Notification Settings</a></li>
+                            <li class="active"><a data-toggle="tab" href="#profile">基本设置</a></li>
+                            <li><a data-toggle="tab" href="#passwordTab">密码修改</a></li>
+                          
+                          <!--   <li><a data-toggle="tab" href="#settings">账号绑定</a></li> -->
                         </ul>
                         <div class="tab-content">
+                            
                             <div id="profile" class="profile-edit tab-pane fade in active">
-                                <h2 class="heading-md">Manage your Name, ID and Email Addresses.</h2>
-                                <p>Below are the name and email addresses on file for your account.</p>
-                                <br>
-                                <dl class="dl-horizontal">
-                                    <dt><strong>Your name </strong></dt>
-                                    <dd>
-                                        Edward Rooster
-                                        <span>
-                                            <a class="pull-right" href="#">
-                                                <i class="fa fa-pencil"></i>
-                                            </a>
-                                        </span>
-                                    </dd>
-                                    <hr>
-                                    <dt><strong>Your ID </strong></dt>
-                                    <dd>
-                                        FKJ-032440
-                                        <span>
-                                            <a class="pull-right" href="#">
-                                                <i class="fa fa-pencil"></i>
-                                            </a>
-                                        </span>
-                                    </dd>
-                                    <hr>
-                                    <dt><strong>Company name </strong></dt>
-                                    <dd>
-                                        Htmlstream
-                                        <span>
-                                            <a class="pull-right" href="#">
-                                                <i class="fa fa-pencil"></i>
-                                            </a>
-                                        </span>
-                                    </dd>
-                                    <hr>
-                                    <dt><strong>Primary Email Address </strong></dt>
-                                    <dd>
-                                        edward-rooster@gmail.com
-                                        <span>
-                                            <a class="pull-right" href="#">
-                                                <i class="fa fa-pencil"></i>
-                                            </a>
-                                        </span>
-                                    </dd>
-                                    <hr>
-                                    <dt><strong>Phone Number </strong></dt>
-                                    <dd>
-                                        (304) 33-2867-499
-                                        <span>
-                                            <a class="pull-right" href="#">
-                                                <i class="fa fa-pencil"></i>
-                                            </a>
-                                        </span>
-                                    </dd>
-                                    <hr>
-                                    <dt><strong>Office Number </strong></dt>
-                                    <dd>
-                                        (304) 44-9810-296
-                                        <span>
-                                            <a class="pull-right" href="#">
-                                                <i class="fa fa-pencil"></i>
-                                            </a>
-                                        </span>
-                                    </dd>
-                                    <hr>
-                                    <dt><strong>Address </strong></dt>
-                                    <dd>
-                                        California, US
-                                        <span>
-                                            <a class="pull-right" href="#">
-                                                <i class="fa fa-pencil"></i>
-                                            </a>
-                                        </span>
-                                    </dd>
-                                    <hr>
-                                </dl>
-                                <button type="button" class="btn-u btn-u-default">Cancel</button>
-                                <button type="button" class="btn-u">Save Changes</button>
+                            <div class="pro-block">
+                            <h2 class="heading-md">为了您更好的体验，请务必填写以下信息。</h2>
+                            </br>
+
+
+                            <dl class="dl-horizontal">
+                                <dt><strong>昵称</strong></dt>
+                                <dd>
+                                    {{$user_extra->nickname}}
+                                    
+                                </dd>
+                                <hr>
+                                <dt><strong>性别</strong></dt>
+                                <dd>
+                                    {{$user_extra=="male"?'男':'女'}}
+                                   
+                                </dd>
+                                <hr>
+                                <dt><strong>生日</strong></dt>
+                                <dd>
+                                    {{date('Y-m-d',$user_extra->birth)}}
+                                   
+                                </dd>
+                                <hr>
+                                <dt><strong>地址</strong></dt>
+                                <dd>
+                                    {{$user_extra->province}}-{{$user_extra->city}}-{{$user_extra->country}}
+                              
+                                </dd>
+                                <hr>
+                                <dt><strong>个性签名</strong></dt>
+                                <dd>
+                                    {{$user_extra->sign}}
+                                   
+                                </dd>
+                                <hr>
+                      
+                            </dl>
+                            <button class="btn-u" id="editProfile">信息不全？修改</button>
                             </div>
+                            <form class="sky-form" id="profileForm" style="display: none;">
+                                <fieldset>
+                                <section>
+                                    <div class="row">
+                                        <label class="label col col-2">昵称</label>
+                                        <div class="col col-10">
+                                            <label class="input" for="nickname">
+                                             
+                                                <input type="text" value="{{$user_extra->nickname}}" id="nickname" placeholder="昵称" name="nickname">
+                                            </label>
+                                        </div>
+                                    </div>
+                                </section>
+                                <section>
+                                    <div class="row">
+                                        <label class="label col col-2">性别</label>
+                                        <div class="col col-4">
+                                            <label class="input" for="sex">
+                                                  <label class="select">
+                                                      <select name="sex">
+                                                        <option value="male"{{$user_extra->sex=='male'?'selected':''}}>男</option>
+                                                        <option value="female" {{$user_extra->sex=='female'?'selected':''}}>女</option>
+                                                      </select>
+                                                      <i></i>
+                                                  </label>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </section>
+
+                                <section>
+                                    <div class="row">
+                                        <label class="label col col-2">生日</label>
+                                              <section class="col col-4">
+                                                  <label class="select">
+                                                      <select name="year" id="sel_year" rel="{{date('Y',$user_extra->birth)}}">
+                                                      </select>
+                                                      <i></i>
+                                                  </label>
+                                              </section>
+
+                                              <section class="col col-3">
+                                                 <label class="select">
+                                                     <select name="month" id="sel_month" rel="{{date('m',$user_extra->birth)}}">
+                                                     </select>
+                                                     <i></i>
+                                                 </label>
+                                              </section>
+
+                                              <section class="col col-3">
+                                              <label class="select">
+                                                  <select name="day" id="sel_day" rel="{{date('d',$user_extra->birth)}}">
+                                                  </select>
+                                                  <i></i>
+                                              </label>
+                                              </section>
+                                    
+                                        </div>
+                                 
+                                </section>
+                                     <section>
+
+                                    <div class="row" id="city">
+                                        <label class="label col col-2">地址</label>
+                                              <section class="col col-4">
+                                                  <label class="select">
+                                                      <select name="province" class="prov">
+                                                      </select>
+                                                      <i></i>
+                                                  </label>
+                                              </section>
+
+                                              <section class="col col-3">
+                                                 <label class="select">
+                                                     <select name="city" class="city">
+                                                     </select>
+                                                     <i></i>
+                                                 </label>
+                                              </section>
+
+                                              <section class="col col-3">
+                                              <label class="select">
+                                                  <select name="country" class="dist">
+                                                  </select>
+                                                  <i></i>
+                                              </label>
+                                              </section>
+                                    
+                                        </div>
+                                 
+                                </section>
+                                     </section>
+                                     <section>
+
+                                    <div class="row">
+                                        <label class="label col col-2">个性签名</label>
+                                            <section class="col col-10">
+                                                <label class="textarea">
+                                                    <textarea rows="3" name="sign" placeholder="说点什么吧！">{{$user_extra->sign}}</textarea>
+                                                </label>
+                                            </section>
+                                    
+                                        </div>
+                                 
+                                </section>
+
+                          
+                            </fieldset>
+                            <footer>
+                               
+                                <button type="submit" class="btn-u">保存修改</button>
+                            </footer>  
+                             </form>  
+                            </div>
+                           
+
 
                             <div id="passwordTab" class="profile-edit tab-pane fade">
-                                <h2 class="heading-md">Manage your Security Settings</h2>
-                                <p>Change your password.</p>
+                                <h2 class="heading-md">管理密码</h2>
+                          
                                 <br>
                                 <form class="sky-form" id="sky-form4" action="#">
                                     <dl class="dl-horizontal">
-                                        <dt>Username</dt>
-                                        <dd>
-                                            <section>
-                                                <label class="input">
-                                                    <i class="icon-append fa fa-user"></i>
-                                                    <input type="text" placeholder="Username" name="username">
-                                                    <b class="tooltip tooltip-bottom-right">Needed to enter the website</b>
-                                                </label>
-                                            </section>
-                                        </dd>
-                                        <dt>Email address</dt>
+                            
+                                        <dt>原密码</dt>
                                         <dd>
                                             <section>
                                                 <label class="input">
                                                     <i class="icon-append fa fa-envelope"></i>
-                                                    <input type="email" placeholder="Email address" name="email">
+                                                     <input type="password" id="password" name="password" placeholder="Password">
                                                     <b class="tooltip tooltip-bottom-right">Needed to verify your account</b>
                                                 </label>
                                             </section>
                                         </dd>
-                                        <dt>Enter your password</dt>
+                                        <dt>新密码</dt>
                                         <dd>
                                             <section>
                                                 <label class="input">
@@ -142,7 +211,7 @@
                                                 </label>
                                             </section>
                                         </dd>
-                                        <dt>Confirm Password</dt>
+                                        <dt>重新输入新密码</dt>
                                         <dd>
                                             <section>
                                                 <label class="input">
@@ -153,87 +222,17 @@
                                             </section>
                                         </dd>
                                     </dl>
-                                    <label class="toggle toggle-change"><input type="checkbox" checked="" name="checkbox-toggle-1"><i class="no-rounded"></i>Remember password</label>
-                                    <br>
-                                    <section>
-                                        <label class="checkbox"><input type="checkbox" id="terms" name="terms"><i></i><a href="#">I agree with the Terms and Conditions</a></label>
-                                    </section>
-                                    <button type="button" class="btn-u btn-u-default">Cancel</button>
+                                
+                    
                                     <button class="btn-u" type="submit">Save Changes</button>
                                 </form>
                             </div>
 
-                            <div id="payment" class="profile-edit tab-pane fade">
-                                <h2 class="heading-md">Manage your Payment Settings</h2>
-                                <p>Below are the payment options for your account.</p>
-                                <br>
-                                <form class="sky-form" id="sky-form" action="#">
-                                    <!--Checkout-Form-->
-                                    <section>
-                                        <div class="inline-group">
-                                            <label class="radio"><input type="radio" checked="" name="radio-inline"><i class="rounded-x"></i>Visa</label>
-                                            <label class="radio"><input type="radio" name="radio-inline"><i class="rounded-x"></i>MasterCard</label>
-                                            <label class="radio"><input type="radio" name="radio-inline"><i class="rounded-x"></i>PayPal</label>
-                                        </div>
-                                    </section>
-
-                                    <section>
-                                        <label class="input">
-                                            <input type="text" name="name" placeholder="Name on card">
-                                        </label>
-                                    </section>
-
-                                    <div class="row">
-                                        <section class="col col-10">
-                                            <label class="input">
-                                                <input type="text" name="card" id="card" placeholder="Card number">
-                                            </label>
-                                        </section>
-                                        <section class="col col-2">
-                                            <label class="input">
-                                                <input type="text" name="cvv" id="cvv" placeholder="CVV2">
-                                            </label>
-                                        </section>
-                                    </div>
-
-                                    <div class="row">
-                                        <label class="label col col-4">Expiration date</label>
-                                        <section class="col col-5">
-                                            <label class="select">
-                                                <select name="month">
-                                                    <option disabled="" selected="" value="0">Month</option>
-                                                    <option value="1">January</option>
-                                                    <option value="1">February</option>
-                                                    <option value="3">March</option>
-                                                    <option value="4">April</option>
-                                                    <option value="5">May</option>
-                                                    <option value="6">June</option>
-                                                    <option value="7">July</option>
-                                                    <option value="8">August</option>
-                                                    <option value="9">September</option>
-                                                    <option value="10">October</option>
-                                                    <option value="11">November</option>
-                                                    <option value="12">December</option>
-                                                </select>
-                                                <i></i>
-                                            </label>
-                                        </section>
-                                        <section class="col col-3">
-                                            <label class="input">
-                                                <input type="text" placeholder="Year" id="year" name="year">
-                                            </label>
-                                        </section>
-                                    </div>
-                                    <button type="button" class="btn-u btn-u-default">Cancel</button>
-                                    <button class="btn-u" type="submit">Save Changes</button>
-                                    <!--End Checkout-Form-->
-                                </form>
-                            </div>
-
+           
+<!-- 
                             <div id="settings" class="profile-edit tab-pane fade">
-                                <h2 class="heading-md">Manage your Notifications.</h2>
-                                <p>Below are the notifications you may manage.</p>
-                                <br>
+                                <h2 class="heading-md">管理社交账号绑定</h2>
+                               
                                 <form class="sky-form" id="sky-form3" action="#">
                                     <label class="toggle"><input type="checkbox" checked="" name="checkbox-toggle-1"><i class="no-rounded"></i>Email notification</label>
                                     <hr>
@@ -248,7 +247,7 @@
                                     <button type="button" class="btn-u btn-u-default">Reset</button>
                                     <button class="btn-u" type="submit">Save Changes</button>
                                 </form>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -265,6 +264,10 @@
 <script type="text/javascript" src="/assets/plugins/counter/jquery.counterup.min.js"></script>
 <script type="text/javascript" src="/assets/plugins/sky-forms-pro/skyforms/js/jquery-ui.min.js"></script>
 <script type="text/javascript" src="/assets/plugins/scrollbar/js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script type="text/javascript" src="/libs/birthday/birthday.js"></script>
+<script type="text/javascript" src="/libs/cityselect/js/jquery.cityselect.js"></script>
+<script type="text/javascript" src="http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js"></script> 
+
 
 
 
@@ -275,6 +278,11 @@
 
   App.initCounter();
   App.initScrollBar();
+  ProfileSocial.setPicker();
+  ProfileSocial.profileForm();
+
+
+    
 
 
 @endsection

@@ -8,13 +8,31 @@
 
 @section('breadcrumbs')
 
-<div class="breadcrumbs breadcrumbs-dark">
+<div class="breadcrumbs" style="margin-bottom: 30px;padding-top:30px;">
         <div class="container">
-            <h1 class="pull-left">Search Results</h1>
-            <ul class="pull-right breadcrumb">
-                <li><a href="index.html">网红学院</a></li>
-                <li class="active">搜索页</li>
-            </ul>
+            <div class="row">
+                <div class="col-md-12  academy-list">
+                    <h1 class="" style="font-size:30px;margin-bottom: 30px;">网红学院</h1>
+                    <ul class="list-unstyled list-inline">
+                        <li><a href="javascript:;">类别</a></li>
+                        <li class="active"><a href="#">穿衣搭配</a></li>
+                        <li class=""><a href="#">化妆</a></li>
+                    </ul>
+                    <ul class="list-unstyled list-inline">
+                        <li><a href="javascript:;">类型</a></li>
+                        <li class=""><a href="#">视频</a></li>
+                        <li class=""><a href="#">文章</a></li>
+                    </ul>
+                    <ul class="list-unstyled list-inline">
+                        <li><a href="javascript:;">排序</a></li>
+                        <li class=""><a href="#">热门喜欢</a></li>
+                        <li class=""><a href="#">正在热议</a></li>
+                        <li class=""><a href="#">官方推荐</a></li>
+                        <li class=""><a href="#">最新发布</a></li>
+                    </ul>
+                </div>
+            </div>
+          
         </div>
     </div>
 @endsection
@@ -22,205 +40,38 @@
 
 @section('content')
 <!--=== Search Block Version 2 ===-->
-<div class="search-block-v2">
-    <div class="container">
-        <div class="col-md-6 col-md-offset-3">
-            <h2>Search again</h2>
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search words with regular expressions ...">
-                <span class="input-group-btn">
-                    <button class="btn-u" type="button"><i class="fa fa-search"></i></button>
-                </span>
-            </div>
-        </div>
-    </div>
-</div><!--/container-->
-<!--=== End Search Block Version 2 ===-->
+
 
     <!--=== Search Results ===-->
-    <div class="container s-results margin-bottom-50">
+    <div class="container s-results margin-bottom-50" >
         <div class="row">
-            <div class="col-md-2 hidden-xs related-search">
+    
+
+            <div class="col-md-12">
                 <div class="row">
-                    <div class="col-md-12 col-sm-4">
-                        <h3>学院资源</h3>
-                        <ul class="list-unstyled">
-                            <li><a href="#">全部</a></li>
-                            <li><a href="#">最新发布</a></li>
-                            <li><a href="#">最多评论</a></li>
-                            <li><a href="#">热门视频</a></li>
-                       
-                        </ul>
-                        
-                    </div>
-                </div>
-            </div><!--/col-md-2-->
-
-            <div class="col-md-10">
-                <span class="results-number">About 384,907 results</span>
-                <!-- Begin Inner Results -->
-                <div class="inner-results">
-                    <h3><a href="/academy/item">Web design</a></h3>
-                    <ul class="list-inline up-ul">
-                        <li>en.wikipedia.org/wiki/Web_design‎</li>
-                        <li class="btn-group">
-                            <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
-                                More<i class="fa fa-caret-down margin-left-5"></i>
-                                <span class="sr-only">Toggle Dropdown</span>
-                            </button>
-                            <ul role="menu" class="dropdown-menu">
-                                <li><a href="#">Share</a></li>
-                                <li><a href="#">Similar</a></li>
-                                <li><a href="#">Advanced search</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#">Wrapbootstrap</a></li>
-                        <li><a href="#">Dribbble</a></li>
-                    </ul>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ut orci urna. Morbi blandit enim eget risus posuere dapibus. Vestibulum velit nisi, tempus in placerat non, auctor eu purus. Morbi suscipit porta libero, ac tempus tellus consectetur non. Praesent eget consectetur nunc. Aliquam erat volutpat. Suspendisse ultrices eros eros, consectetur facilisis urna posuere id.</p>
-                    <ul class="list-inline down-ul">
-                        <li>
-                            <ul class="list-inline star-vote">
-                                <li><i class="color-green fa fa-star"></i></li>
-                                <li><i class="color-green fa fa-star"></i></li>
-                                <li><i class="color-green fa fa-star"></i></li>
-                                <li><i class="color-green fa fa-star"></i></li>
-                                <li><i class="color-green fa fa-star-half-o"></i></li>
-                            </ul>
-                        </li>
-                        <li>3 years ago - By Anthon Brandley</li>
-                        <li>234,034 views</li>
-                        <li><a href="#">Web designer</a></li>
-                    </ul>
-                </div>
-                <!-- Begin Inner Results -->
-
-                <hr>
-
-                <!-- Begin Inner Results -->
-                <div class="inner-results">
-                    <h3><a href="#">Web Design - 1 - Introduction to Web Design</a></h3>
-                    <ul class="list-inline up-ul">
-                        <li>thenewboston.org‎/webdesign-tutorials</li>
-                        <li class="btn-group">
-                            <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
-                                More<i class="fa fa-caret-down margin-left-5"></i>
-                                <span class="sr-only">Toggle Dropdown</span>
-                            </button>
-                            <ul role="menu" class="dropdown-menu">
-                                <li><a href="#">Share</a></li>
-                                <li><a href="#">Similar</a></li>
-                                <li><a href="#">Advanced search</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#">HTML/CSS</a></li>
-                        <li><a href="#">Javascript</a></li>
-                        <li><a href="#">PHP</a></li>
-                    </ul>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ut orci urna. Morbi blandit enim eget risus posuere dapibus. Vestibulum velit nisi, tempus in placerat non, auctor eu purus. Morbi suscipit porta libero, ac tempus tellus consectetur non. Praesent eget consectetur nunc. Aliquam erat volutpat. Suspendisse ultrices eros eros, consectetur facilisis urna posuere id.</p>
-                    <ul class="list-inline down-ul">
-                        <li>
-                            <ul class="list-inline star-vote">
-                                <li><i class="color-green fa fa-star"></i></li>
-                                <li><i class="color-green fa fa-star"></i></li>
-                                <li><i class="color-green fa fa-star"></i></li>
-                                <li><i class="color-green fa fa-star-o"></i></li>
-                                <li><i class="color-green fa fa-star-o"></i></li>
-                            </ul>
-                        </li>
-                        <li>2 years ago - By Bucky Roberts</li>
-                        <li>594,184 views</li>
-                        <li><a href="#">Videos &amp; Tutorials</a></li>
-                    </ul>
-                </div>
-                <!-- Begin Inner Results -->
-
-                <hr>
-
-                <!-- Begin Inner Results -->
-                <div class="inner-results">
-                    <h3><a href="#">WrapBootstrap - Bootstrap Themes &amp; Templates</a></h3>
-                    <ul class="list-inline up-ul">
-                        <li>https://wrapbootstrap.com/‎</li>
-                        <li class="btn-group">
-                            <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
-                                More<i class="fa fa-caret-down margin-left-5"></i>
-                                <span class="sr-only">Toggle Dropdown</span>
-                            </button>
-                            <ul role="menu" class="dropdown-menu">
-                                <li><a href="#">Share</a></li>
-                                <li><a href="#">Similar</a></li>
-                                <li><a href="#">Advanced search</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#">Admin</a></li>
-                        <li><a href="#">Template</a></li>
-                        <li><a href="#">OnePage Template</a></li>
-                        <li><a href="#">Joomla</a></li>
-                    </ul>
-                    <div class="overflow-h">
-                        <img src="assets/img/testimonials/img1.jpg" alt="">
-                        <div class="overflow-a">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ut orci urna. Morbi blandit enim eget risus posuere dapibus. Vestibulum velit nisi, tempus in placerat non, auctor eu purus. Morbi suscipit porta libero, ac tempus tellus consectetur non. Praesent eget consectetur nunc. Aliquam erat volutpat. Suspendisse ultrices eros eros, consectetur facilisis urna posuere id.</p>
-                            <ul class="list-inline down-ul">
-                                <li>
-                                    <ul class="list-inline star-vote">
-                                        <li><i class="color-green fa fa-star"></i></li>
-                                        <li><i class="color-green fa fa-star"></i></li>
-                                        <li><i class="color-green fa fa-star"></i></li>
-                                        <li><i class="color-green fa fa-star"></i></li>
-                                        <li><i class="color-green fa fa-star-half-o"></i></li>
-                                    </ul>
-                                </li>
-                                <li>11 months ago - By WrapBootstrap</li>
-                                <li>2,092,675 views</li>
-                            </ul>
+                    @foreach($covers as $cover)
+                    <div class="col-sm-4 col-md-3" style="background-color: #FCFCFC">
+                        <div class="thumbnails ">
+                            <a class="fancybox" data-rel="fancybox-button" title="Project #1">
+                                <img class="img-responsive" src="{{$cover->img?$cover->img:'assets/img/main/img18.jpg'}}" alt="">
+                            </a>
+                            <div class="caption">
+                                <h5 style="padding-bottom: 0px;"><a class="hover-effect" href="/academy/detail/{{$cover->id}}">{{$cover->title}}</a></h5>
+                                <p>{{$cover->name}}</p>
+                            </div>
+                            <div class="th-footer">
+                                <div class="row">
+                                    <div class="col-xs-4"><i class="fa fa-caret-square-o-right"></i>&nbsp;22</div>
+                                    <div class="col-xs-4"><i class="fa fa-thumbs-o-up"></i>&nbsp;22</div>
+                                    <div class="col-xs-4 text-right"><i class="fa fa-comment "></i>&nbsp;22</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <!-- Begin Inner Results -->
-
-                <hr>
-
-                <!-- Begin Inner Results -->
-                <div class="inner-results">
-                    <h3><a href="#">Web Design - Website Design Tutorials, Articles</a></h3>
-                    <ul class="list-inline up-ul">
-                        <li>www.webdesign.org/</li>
-                        <li class="btn-group">
-                            <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
-                                More<i class="fa fa-caret-down margin-left-5"></i>
-                                <span class="sr-only">Toggle Dropdown</span>
-                            </button>
-                            <ul role="menu" class="dropdown-menu">
-                                <li><a href="#">Share</a></li>
-                                <li><a href="#">Similar</a></li>
-                                <li><a href="#">Advanced search</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ut orci urna. Morbi blandit enim eget risus posuere dapibus. Vestibulum velit nisi, tempus in placerat non, auctor eu purus. Morbi suscipit porta libero, ac tempus tellus consectetur non. Praesent eget consectetur nunc. Aliquam erat volutpat. Suspendisse ultrices eros eros, consectetur facilisis urna posuere id.</p>
-                    <ul class="list-inline down-ul">
-                        <li>By Alice Emilsson</li>
-                        <li>98,298 views</li>
-                    </ul>
-                </div>
-                <!-- Begin Inner Results -->
-
-                <div class="margin-bottom-30"></div>
-
-                <div class="text-left">
-                    <ul class="pagination">
-                        <li><a href="#">«</a></li>
-                        <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">...</a></li>
-                        <li><a href="#">157</a></li>
-                        <li><a href="#">158</a></li>
-                        <li><a href="#">»</a></li>
-                    </ul>
-                </div>
+                    @endforeach
+                 
+                </div> 
+             
             </div><!--/col-md-10-->
         </div>
     </div><!--/container-->

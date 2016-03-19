@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Auth;
+use Session;
 class PublicController extends Controller
 {
     public function getLogin() {
@@ -18,6 +19,7 @@ class PublicController extends Controller
        $this->validate($request, $rules);
 
        if (Auth::guard('user')->attempt($request->only(['email', 'password']), $request->has('remember'))) {
+          
            return redirect('/user/home/profile');
        }
        return back()->withInput()->withErrors(['password' => ['login failed']]);

@@ -1,1 +1,300 @@
-/* Add here all your css styles (customizations) */
+/*/* Add here all your css styles (customizations) */
+.face-img{
+
+	box-shadow: 0px 0px 10px #fff;
+}
+.face-img:hover{
+
+	box-shadow: 0px 0px 10px #eb7350;
+}
+#videoCover .cropit-preview {
+    background-color: #f8f8f8;
+    background-size: cover;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-top: 7px;
+    left:50%;
+    margin-left: -147px;
+    width: 293px;
+    height: 184px;
+    text-align: center;
+  }
+   #videoCover .input-file .button {
+    height: 32px;
+    width: 92px;
+    top:-50px;
+    left:50%;
+    margin-left: -46px;
+}
+#coverForm .cropit-preview {
+    background-color: #f8f8f8;
+    background-size: cover;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-top: 7px;
+    left:50%;
+    margin-left: -230px;
+    width: 295px;
+    height: 186px;
+    text-align: center;
+  }
+.rotate-btns{
+	margin-right: 20px;
+}
+
+.rotate-btns i{
+	font-size: 14px;
+	margin-right: 20px;
+}	
+  #faceForm   .cropit-preview {
+    background-color: #f8f8f8;
+    background-size: cover;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-top: 7px;
+    left:0;
+    top:-30px;
+    margin-left: 0px;
+    width: 300px;
+    height: 300px;
+    text-align: center;
+  }
+  #faceForm .slider-wrapper {
+    position: absolute;
+    left: 32%;
+    bottom: 25px;
+    margin-left: -140px;
+}
+  #coverForm .slider-wrapper {
+   position: absolute;
+    left: 32%;
+    bottom: -20px;
+
+    margin-left: -140px;
+}
+
+  .cropit-preview {
+    background-color: #f8f8f8;
+    background-size: cover;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-top: 7px;
+    left:50%;
+    margin-left: -150px;
+    width: 300px;
+    height: 300px;
+    text-align: center;
+  }
+
+  .cropit-preview-image-container {
+    cursor: move;
+  }
+  .jconfirm .jconfirm-box div.content-pane .content img{
+    width: auto;
+    height: auto;
+  }
+
+  .image-size-label {
+    margin-top: 10px;
+  }
+  #faceForm .input-file .button {
+    height: 32px;
+    width: 92px;
+    top:-15px;
+    right:0;
+    margin-left: -42px;
+}
+.header-v8 .demand{
+	min-width: 100px;
+}
+/*#faceForm .cropit-image-zoom-input{
+	width: 220px!important;
+	margin:0 20px;
+	display: inline-block!important;
+}*/
+.cropit-image-zoom-input{
+	width: 150px!important;
+	margin:0 20px;
+	display: inline-block!important;
+}
+
+/*#faceForm .slider-wrapper{
+	position: absolute;
+	left: 0%;
+	bottom: 0px;
+	margin-left: 0px;
+}*/
+.slider-wrapper{
+	position: absolute;
+	left: 50%;
+	bottom: -20px;
+	margin-left: -109px;
+}
+#faceForm fieldset{
+	padding:25px 0;
+}
+/*#faceForm .cropit-preview {
+    background-color: #f8f8f8;
+    background-size: cover;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-top: 7px;
+    left: 0%;
+    margin-left: 0px;
+    width: 300px;
+    height: 300px;
+    text-align: center;
+}
+*/
+.col-album {
+  width: 550px;
+  height:auto;
+}
+.col-face {
+	width: 500px;
+	height:560px;
+}
+.col-face .content{
+	padding-top:0;
+	padding-bottom:0;
+}
+  input {
+    display: block;
+  }
+
+  button[type="submit"] {
+    margin-top: 10px;
+  }
+
+  #result {
+    margin-top: 10px;
+    width: 900px;
+  }
+
+  #result-data {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+  }
+
+
+ .demand-menu button.btn-u{
+ 	background-color: #fff!important;
+ 	color:#555;
+ 	border:1px solid #555;
+ }
+ .demand-menu button.btn-u:hover{
+ 	background-color: #ec971f!important;
+ 	color:#fff;
+ 	border:1px solid #eee;
+
+ }
+ .academy-list ul li.active a, .academy-list ul li.active a:hover{
+	display: inline-block;
+	text-decoration: none;
+	font-size:14px;
+	padding:3px 7px;
+	color:#fff;
+	background-color: #3498db;
+	border-radius: 2px;
+ }
+  .academy-list ul li a{
+
+	text-decoration: none;
+ }
+ .academy-list ul li a:hover{
+	color:#3498db;
+	text-decoration: none;
+ }
+ .th-footer{
+ 	background-color: #FCFCFC;
+ }
+  .th-footer div{
+  	color:#bbb;
+  }
+  .comment-tip {
+    height: 20px;
+    background: url(/assets/img/comment.png) no-repeat 0 0 transparent;
+    margin-bottom: 10px;
+}
+.praise-box .praise span{
+  color:#555;
+  font-size: 28px;
+}
+.praise-box .praise{
+  height: 70px;
+  padding:6px 0 0 30px;
+  font-size: 14px;
+  line-height: 14px;
+  border:1px solid #eee;
+  cursor: pointer;
+  background-color: #fff;
+}
+.praise-box .praise:hover{
+  background-color: #f44;
+}
+.praise-box .praise:hover i,.praise-box .praise:hover span,.praise-box .praise:hover div{
+  color:#fff;
+}
+.praise-box .praise i {
+  border:none;
+}
+.praise-box .praise-active i,.praise-box .praise-active span{
+	color:#f44;
+}
+.praise-num{
+  position:relative;
+  top:50%;
+  margin-top:-9px;
+  right:8px;
+  color:#555;
+}
+.comment-face{
+  width: 35px;
+  height: 35px;
+  margin-top: 8px;
+}
+.my-reply,.my-reply span{
+	color:#ccc;
+}
+.bg-color-video{
+	background-color: #292929;
+}
+.video-bread{
+	background-color: #292929;
+    overflow: hidden;
+    padding: 10px 0 6px;
+    border-bottom: 1px solid #000;
+}
+.video-bread a{
+	color:#fff;
+}
+.video-bread li.active, .video-bread li a:hover{
+	color:#fff;
+}
+.video-preview{
+	background-color: #f8f8f8;
+	background-size: cover;
+	border: 1px solid #ccc;
+
+	width: 293px;
+	height: 184px;
+	text-align: center;
+}
+.video-body button{
+	width: 293px;
+}
+
+
+
+
+
+
+
+
+
+
+
+*/

@@ -4,8 +4,7 @@
 
 <link rel="stylesheet" href="/assets/css/pages/profile.css">
 <link rel="stylesheet" href="/assets/plugins/scrollbar/css/jquery.mCustomScrollbar.css">
-<link rel="stylesheet" href="/assets/plugins/sky-forms-pro/skyforms/css/sky-forms.css">
-<link rel="stylesheet" href="/assets/plugins/sky-forms-pro/skyforms/custom/custom-sky-forms.css">
+
 @endsection
 
 @section('content')
@@ -163,7 +162,6 @@
 <script type="text/javascript" src="/assets/plugins/counter/jquery.counterup.min.js"></script>
 <script type="text/javascript" src="/assets/plugins/sky-forms-pro/skyforms/js/jquery-ui.min.js"></script>
 <script type="text/javascript" src="/assets/plugins/scrollbar/js/jquery.mCustomScrollbar.concat.min.js"></script>
-<script type="text/javascript" src="/init/js/profile.js"></script>
 
 
 

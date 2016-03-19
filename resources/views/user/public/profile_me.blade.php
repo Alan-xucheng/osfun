@@ -5,44 +5,7 @@
 <link rel="stylesheet" href="/assets/css/pages/profile.css">
 <link rel="stylesheet" href="/assets/plugins/scrollbar/css/jquery.mCustomScrollbar.css">
 <style>
-  .cropit-preview {
-    background-color: #f8f8f8;
-    background-size: cover;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    margin-top: 7px;
-    width: 250px;
-    height: 250px;
-  }
 
-  .cropit-preview-image-container {
-    cursor: move;
-  }
-
-  .image-size-label {
-    margin-top: 10px;
-  }
-
-  input {
-    display: block;
-  }
-
-  button[type="submit"] {
-    margin-top: 10px;
-  }
-
-  #result {
-    margin-top: 10px;
-    width: 900px;
-  }
-
-  #result-data {
-    display: block;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    word-wrap: break-word;
-  }
 </style>
 @endsection
 
@@ -199,12 +162,12 @@
 @endsection
 
 @section('scripts')
-<script src="/libs/cropit/jquery.cropit.js"></script>
+
 <script type="text/javascript" src="/assets/plugins/counter/waypoints.min.js"></script>
 <script type="text/javascript" src="/assets/plugins/counter/jquery.counterup.min.js"></script>
 <script type="text/javascript" src="/assets/plugins/sky-forms-pro/skyforms/js/jquery-ui.min.js"></script>
 <script type="text/javascript" src="/assets/plugins/scrollbar/js/jquery.mCustomScrollbar.concat.min.js"></script>
-<script type="text/javascript" src="/init/js/profile.js"></script>
+
 
 
 

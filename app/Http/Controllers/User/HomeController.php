@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\User;
 
-use Illuminate\Http\Request;
+use Request;
 use Auth;
-use App\Http\Requests;
+use Tool;
 use App\Http\Controllers\Controller;
 use App\ProfileSocial as Social;
 use App\UserSkills as Skills;
@@ -12,6 +12,8 @@ use App\Demand;
 use App\Tag;
 use App\TagMap;
 use App\UserExtra;
+use App\Album;
+use App\AlbumCover;
 
 
 class HomeController extends Controller
@@ -29,21 +31,31 @@ class HomeController extends Controller
     	return view('user.public.message');
 
     }
-    public function getMessage(){
 
-
-    	return view('user.public.message');
-    }
-
-    public function getMessageHistory(){
-
-        return view('user.public.message_history');
-    }
 
     public function getProfile(){
 
     	return view('user.public.profile');
     }
+    public function getCreateAlbum($type='personal'){
+
+        $type = Request::input('type');
+
+        $user_id = Auth::guard('user')->user()->id;
+
+        $cover = AlbumCover::firstOrCreate(['user_id'=>$user_id,'status'=>'draft','type'=>$type]);
+
+        $album = Album::firstOrCreate(['cover_id'=>$cover->id]);
+
+        $data['cover'] = $cover;
+
+        $data['album'] = $album;
+
+
+        return view('user.public.create_album',$data);
+    }
+
+
 
     public function getProfileMe(){
 
@@ -68,7 +80,14 @@ class HomeController extends Controller
 
     public function getProfileSettings(){
 
-    	return view('user.public.profile_settings');
+        $user_id = Auth::guard('user')->user()->id;
+
+        $user_extra = UserExtra::firstOrCreate(['user_id'=>$user_id]);
+
+        $data['user_extra'] = $user_extra;
+
+
+    	return view('user.public.profile_settings',$data);
     }
 
     public function getProfileProject(){
@@ -77,14 +96,26 @@ class HomeController extends Controller
 
         $demands = Demand::where('user_id',$user_id)->get();
 
-        $demands = $demands -> each(function($item,$key){
-
-              return  $item['tags'] = explode(',', $item['tags']);
-        });
+  
 
         $data['demands'] = $demands;
 
+
     	return view('user.public.profile_project',$data);
+    }
+
+    public function getProfileAlbum($type = 'personal'){
+
+        $type = Request::input('type')==null?$type:Request::input('type');
+
+        $user_id = Auth::guard('user')->user()->id;
+
+        $cover = AlbumCover::where('user_id',$user_id)->where('type',$type)->where('status',"<>",'draft')->get();
+
+        $data['covers'] = $cover;
+ 
+       
+        return view('user.public.profile_album',$data);
     }
 
     public function getProfileSocial(){
@@ -118,6 +149,36 @@ class HomeController extends Controller
     public function getProfileDemand(){
 
         return view('user.public.profile_demand');
+    }
+
+    public function getAlbumDetail(){
+
+        $album_id = Request::input('album');
+
+        $user_id = Auth::guard('user')->user()->id;
+
+        $cover = AlbumCover::findOrFail($album_id);
+
+        if($cover->user_id != $user_id){
+
+            abort(403);
+        }
+
+        $album = Album::where('cover_id',$album_id)->firstOrFail();
+
+        $data['cover'] = $cover;
+
+        $data['album'] = $album;
+
+
+        return view('user.public.create_album',$data);
+
+
+
+    }
+    public function getCreateVideo(){
+
+        return view('user.public.create_video');
     }
 
 

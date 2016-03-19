@@ -1,18 +1,24 @@
      <div class="col-md-3 md-margin-bottom-40">
-                <img class="img-responsive profile-img margin-bottom-20" src="/assets/img/team/img32-md.jpg" alt="">
+                <!-- <img class="img-responsive profile-img margin-bottom-20" src="/assets/img/team/img32-md.jpg" alt=""> -->
+                <div class="text-center"  style="background-color: #f7f7f7;margin-bottom:15px;padding:15px;">
+                  <img class="rounded-x text-center face-img" style="width: 100px;cursor:pointer;height: 100px;" src="{{$auth->avatar?$auth->avatar:'/assets/img/testimonials/img6.jpg'}}" alt="">
+                  <div class="testimonials-desc" style="margin-top: 10px;">
+                      
+                      <strong>{{$auth->name}}</strong>
+                      <span aria-hidden="true" class="fa fa-female"></span>
+                      <p>认证信息</p>
+                  </div>
+                </div>
 
                 <ul class="list-group sidebar-nav-v1 margin-bottom-40" id="sidebar-nav-1">
-                    <li class="list-group-item {{_IS_ACTIVE(url('/user/home/profile'))}}">
-                        <a href="{{url('/user/home/profile')}}"><i class="fa fa-bar-chart-o"></i>概览</a>
-                    </li>
-                    <li class="list-group-item {{_IS_ACTIVE(url('/user/home/profile-me'))}}">
-                        <a href="{{url('/user/home/profile-me')}}"><i class="fa fa-user"></i>个人资料</a>
-                    </li>
-                    <li class="list-group-item {{_IS_ACTIVE(url('/user/home/profile-friends'))}}">
-                        <a href="{{url('/user/home/profile-friends')}}"><i class="fa fa-group"></i>我的好友</a>
+                  
+               
+                 
+                    <li class="list-group-item {{_IS_ACTIVE(url('/user/home/profile-album'))}}">
+                        <a href="{{url('/user/home/profile-album')}}"><i class="fa  fa-pencil-square-o"></i>我的作品</a>
                     </li>
                     <li class="list-group-item {{_IS_ACTIVE(url('/user/home/profile-project'))}}">
-                        <a href="{{url('/user/home/profile-project')}}"><i class="fa fa-cubes"></i>我的发布</a>
+                        <a href="{{url('/user/home/profile-project')}}"><i class="fa  fa-paper-plane"></i>需求管理</a>
                     </li>
                   
                 <!--     <li class="list-group-item {{_IS_ACTIVE(url('/user/home/profile-comment'))}}">
@@ -20,8 +26,9 @@
                     </li> -->
             
                     <li class="list-group-item {{_IS_ACTIVE(url('/user/home/profile-settings'))}}">
-                        <a href="{{url('/user/home/profile-settings')}}"><i class="fa fa-cog"></i>基本设置</a>
+                        <a href="{{url('/user/home/profile-settings')}}"><i class="fa fa-cog"></i>账号设置</a>
                     </li>
+                  
                 </ul>
 
 

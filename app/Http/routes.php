@@ -50,6 +50,7 @@ Route::group(['middleware' => ['web', 'auth:user'], 'prefix' => 'user', 'namespa
         '/show' => 'ShowController',
         '/home' => 'HomeController',
         '/api' =>'ApiController',
+        '/message' => 'MessageController',
      
     ]);
     Route::get('/', function() {
@@ -71,6 +72,7 @@ Route::group(['middleware' => 'web'], function() {
     Route::controllers([
         'admin/public' => 'Admin\PublicController',
         'user/public' => 'User\PublicController',
+        'api' => 'Publish\ApiController',
         'service/public' => 'Service\PublicController',
         'academy' => 'Publish\AcademyController',
         'view' => 'Publish\ViewController',

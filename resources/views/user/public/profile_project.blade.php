@@ -4,14 +4,34 @@
 
 <link rel="stylesheet" href="/assets/css/pages/profile.css">
 <link rel="stylesheet" href="/assets/plugins/scrollbar/css/jquery.mCustomScrollbar.css">
-<link rel="stylesheet" href="/assets/plugins/sky-forms-pro/skyforms/css/sky-forms.css">
-<link rel="stylesheet" href="/assets/plugins/sky-forms-pro/skyforms/custom/custom-sky-forms.css">
+
 
 <link rel="stylesheet" href="/assets/plugins/ladda-buttons/css/custom-lada-btn.css">
 <link rel="stylesheet" href="/assets/plugins/hover-effects/css/custom-hover-effects.css">
 
 <link rel="stylesheet" href="/assets/plugins/cube-portfolio/cubeportfolio/css/cubeportfolio.min.css">
 <link rel="stylesheet" href="/assets/plugins/cube-portfolio/cubeportfolio/custom/custom-cubeportfolio.css">
+<style>
+    .type-ul{
+    padding:0 5px;
+  }
+  .type-ul li{
+    font-size:14px;
+    margin-right: 20px;
+    padding-top: 10px;
+    padding-bottom:9px; 
+  }
+  .type-ul li a {
+    display: inline;
+    text-decoration: none;
+  }
+  .type-ul li.active{
+    border-bottom: 2px solid #4765a0;
+    color:#4765a0;
+    z-index: 100;
+    
+  }
+</style>
 @endsection
 
 @section('content')
@@ -24,95 +44,40 @@
             <!-- Profile Content -->
          	    <div class="col-md-9">
                     <div class="profile-body">
-                        <div class="alert alert-info fade in">
-                             我发布的图片文章
-                        </div>
-                        <div class="row">
-                        <!-- End Profile Content -->
-                        <div id="grid-container" class="cbp-l-grid-agency  cube-portfolio col-md-12">
-                            <div class="cbp-item web-design logos">
-                                <div class="cbp-caption">
-                                    <div class="cbp-caption-defaultWrap">
-                                        <img src="/assets/img/main/img8.jpg" alt="">
-                                    </div>
-                                    <div class="cbp-caption-activeWrap">
-                                        <div class="cbp-l-caption-alignCenter">
-                                            <div class="cbp-l-caption-body">
-                                                <ul class="link-captions">
-                                                    <li><a href="portfolio_single_item.html"><i class="rounded-x fa fa-link"></i></a></li>
-                                                    <li><a href="/assets/img/main/img8.jpg" class="cbp-lightbox" data-title="Design Object"><i class="rounded-x fa fa-search"></i></a></li>
-
-                                                </ul>
-                                                <div class="cbp-l-grid-agency-title">Design Object 02</div>
-                                                <div class="cbp-l-grid-agency-desc">Web Design</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                         </div><!--/end Grid Container-->
-                        </div>
-                        <div class="alert alert-info fade in margin-top-20">
-                             我发布的需求
-                             <a href="{{url('/user/home/profile-demand')}}" rel="float-shadow" style="position: relative;margin-top:-6px;" class="btn-u btn-u-sea float-shadow pull-right" >发布新需求</a>
-                        </div>
+                        <ul class="list-inline list-unstyled type-ul">
+                          <li class="{{_IS_ACTIVE(url('/user/home/profile-project'))}}"><a href="/user/home/profile-album?type=personal">全部</a></li>
+                        </ul>
+                        <hr style="position:relative;margin-top:-10px;border-top: 2px solid #eee;margin-bottom: 10px;">
                         <div class="row">
                             <div class="col-md-12">
-                                <ul class="row list-row margin-bottom-30">
-                                    @if(!empty($demands))
-                                    @foreach($demands as $demand)
-                                    <li class="col-md-6" style="margin-bottom: 15px;">
-                                      <div class="content-boxes-v3 block-grid-v1 rounded">
-                                          
-                                          <div class="content-boxes-in-v3">
-                                                <div class="row">
-                                                <div class="col-xs-7">
-                                                    <h3 style="margin-bottom:10px;"><a href="#">{{$demand->title}}</a></h3>
-                                                </div>
-                                                <div class="col-xs-5">
-                                                     <ul class="list-inline badge-lists badge-icons" style="margin-top:6px;margin-left:100%;">
-                                                  
-                                                    <li>
-                                                        <a href="#"><i class="fa fa-cog"></i></a>
-                                                        
-                                                    </li>
-                                                 
-                                                </ul>
-                                                </div>
-                                                </div>
-                                              
-                                             
-                                              <div class="margin-bottom-10 margin-top-10">
-                                                  @foreach($demand->tags as $tag)  
-                                                  <span class="label label-red">{{$tag}}</span>
-                                                
-                                                  @endforeach
-                                              </div>
-                                              <ul class="list-inline margin-bottom-5">
-                                                 
-                                                  <li><i class="fa fa-clock-o"></i>{{date('Y-m-d',$demand->end_time)}}</li>
-                                              </ul>
-                                              <p>{{$demand->desc}}</p>
-                                              <ul class="list-inline block-grid-v1-add-info">
-                                                  <li><a href="#"><i class="fa fa-eye"></i> 7653</a></li>
-                                      
-                                                  <li><a href="#"><i class="fa fa-commenting-o"></i> 7653</a></li>
-                                                 
-                                                  <li><a href="#"><i class="fa fa-heart"></i> 583</a></li>
-                                              </ul>
-                                          </div>
-                                      </div>
-                                    </li>
-                                    @endforeach
-                                    @endif
-                                        
-                                            
-                                </ul>
-
-
+                            
+                              <a href="javascript:;" id="pageDemand" class="btn-u btn-u-sea" type="button"><i class="fa fa-paint-brush"></i>
+                              &nbsp;发布需求</a>
+                               <p style="margin-top: 8px;">成功的路上总要有人指引。查看赶紧发布需求，让大家帮助你！<a href="javascript:;">示例需求</a>。</p>
+                          
                             </div>
-
+                        
+                        </div>
+                        <div class="row">
+                          <div class="col-md-12">
+                            <table class="table table-striped">
+                                            
+                                <tbody>
+                                  @foreach($demands as $key=>$demand)
+                                    <tr>
+                                        <td class="col-md-1">{{$key+1}}</td>
+                                        <td class="col-md-6">{{$demand->content}}</td>
+                                        <td class="col-md-3">{{$demand->created_at}}</td>
+                                        <td class="col-md-3">
+                                       
+                                          <a class="btn btn-danger btn-xs delDemand"  value="{{$demand->id}}" style="color:#fff;"><i class="fa fa-trash-o"></i> 删除</a>
+                                        </td>
+                                    </tr>
+                                  @endforeach 
+                             
+                                </tbody>
+                            </table>
+                          </div>
 
                         </div>
                     </div>
@@ -145,6 +110,7 @@
 
   App.initCounter();
   App.initScrollBar();
+  ProfileSocial.delDemand();
    
 
 @endsection

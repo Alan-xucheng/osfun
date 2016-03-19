@@ -79,7 +79,7 @@ class ArticleController extends Controller
  		$attach->src = $result['url'];
  		$attach->save();
 
- 		return Tool::json_return(0,'ok');		
+ 		return Tool::json_return(0,$result);		
 
  	}
 

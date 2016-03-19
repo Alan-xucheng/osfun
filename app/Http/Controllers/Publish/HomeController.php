@@ -12,12 +12,11 @@ use App\Demand;
 
 class HomeController extends Controller
 {
-    //
-    //
-    //
+
     public function getIndex(){
 
     	$tag_id  = Request::input('tag');
+
     	if(!empty($tag_id)){
 
     		$post_id = TagMap::where('tag_id',$tag_id)->where('type','demand')->pluck('post_id');
@@ -26,7 +25,7 @@ class HomeController extends Controller
 
     		foreach ($post_id as $key => $value) {
     			
-    			$item = Demand::select('demands.title','demands.tags','demands.desc','demands.end_time','user_extras.nickname','user_extras.sex','users.avatar')
+    			$item = Demand::select('demands.tags','user_extras.nickname','user_extras.sex','users.avatar','users.id as uid','demands.content','demands.id')
 
     					->leftJoin('user_extras','demands.user_id','=','user_extras.user_id')
 
@@ -42,7 +41,7 @@ class HomeController extends Controller
     		
     	}else{
 
-    		$post = Demand::select('demands.title','demands.tags','demands.desc','demands.end_time','user_extras.nickname','user_extras.sex','users.avatar')
+    		$post = Demand::select('user_extras.nickname','user_extras.sex','users.avatar','users.id as uid','demands.content','demands.id')
 
     				->leftJoin('user_extras','demands.user_id','=','user_extras.user_id')
 
@@ -51,17 +50,18 @@ class HomeController extends Controller
     				->get();
     	}
 
+        $tags = Tag::orderBy('num','desc')->take(24)->get();
 
-    	$tags = Tag::orderBy('num','desc')->take(20)->get();
-
-    	$post = $post -> each(function($item,$key){
-
-    	      return  $item['tags'] = explode(',', $item['tags']);
-    	});
-
-    	$data['tags'] = $tags;
+        
+      
+        $data['tags'] = $tags;
     	$data['posts'] = $post;
-
+        
+    	//dd($data);
     	return view('user.public.index',$data);
     }
+
+
+
+  
 }

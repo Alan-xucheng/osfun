@@ -22,20 +22,25 @@
     <link rel="stylesheet" href="/assets/css/style.css">
 
     <!-- CSS Header and Footer -->
-    <link rel="stylesheet" href="/assets/css/headers/header-default.css">
+    <link rel="stylesheet" href="/assets/css/headers/header-v8.css">
     <link rel="stylesheet" href="/assets/css/footers/footer-v1.css">
 
     <!-- CSS Implementing Plugins -->
     <link rel="stylesheet" href="/assets/plugins/animate.css">
     <link rel="stylesheet" href="/assets/plugins/line-icons/line-icons.css">
     <link rel="stylesheet" href="/assets/plugins/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/confirm/dist/jquery-confirm.min.css">
+    <link rel="stylesheet" href="/libs/loading/loaders.css">
+    <link rel="stylesheet" href="/assets/plugins/sky-forms-pro/skyforms/css/sky-forms.css">
+    <link rel="stylesheet" href="/assets/plugins/sky-forms-pro/skyforms/custom/custom-sky-forms.css">
+    <link rel="stylesheet" href="/libs/tag/jquery.tagsinput.min.css">
      @yield('styles')
 
     <!-- CSS Page Style -->
     <link rel="stylesheet" href="/assets/css/pages/page_log_reg_v1.css">
    
     <!-- CSS Theme -->
-    <link rel="stylesheet" href="/assets/css/theme-colors/red.css" id="style_color">
+    <link rel="stylesheet" href="/assets/css/theme-colors/dark-blue.css" id="style_color">
     <link rel="stylesheet" href="/assets/css/theme-skins/dark.css">
 
     <!-- CSS Customization -->
@@ -43,7 +48,7 @@
    
 </head>
 
-<body>
+<body class="header-fixed header-fixed-space-v2">
 <!--=== Style Switcher ===-->
 <i class="style-switcher-btn fa fa-cogs hidden-xs"></i>
 <div class="style-switcher animated fadeInRight">
@@ -142,15 +147,24 @@
 <script type="text/javascript" src="/assets/plugins/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="/assets/plugins/jquery/jquery-migrate.min.js"></script>
 <script type="text/javascript" src="/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/libs/arttemplate/dist/template.js"></script>
 <!-- JS Implementing Plugins -->
 <script type="text/javascript" src="/assets/plugins/back-to-top.js"></script>
 <script type="text/javascript" src="/assets/plugins/smoothScroll.js"></script>
+
 <!-- JS Customization -->
 <script type="text/javascript" src="/assets/js/custom.js"></script>
 <!-- JS Page Level -->
+<script type="text/javascript" src="/libs/confirm/dist/jquery-confirm.min.js"></script>
 <script type="text/javascript" src="/assets/js/app.js"></script>
+
 <script type="text/javascript" src="/assets/js/plugins/style-switcher.js"></script>
+<script src="/libs/tag/jquery.tagsinput.min.js"></script>
+<script src="/assets/plugins/sky-forms-pro/skyforms/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="/assets/js/forms/order.js"></script>
+<script src="/libs/cropit/jquery.cropit.js"></script>
 @yield('scripts')
+<script type="text/javascript" src="/init/js/profile.js"></script>
 <script type="text/javascript">
 
     jQuery(document).ready(function() {
@@ -161,6 +175,9 @@
         });
         App.init();
         StyleSwitcher.initStyleSwitcher();
+        ProfileSocial.PostDemand();
+        ProfileSocial.faceImg();
+
         @yield('jquery')
     });
 </script>

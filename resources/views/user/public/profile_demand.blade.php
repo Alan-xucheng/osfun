@@ -4,9 +4,8 @@
 
 <link rel="stylesheet" href="/assets/css/pages/profile.css">
 <link rel="stylesheet" href="/assets/plugins/scrollbar/css/jquery.mCustomScrollbar.css">
-<link rel="stylesheet" href="/assets/plugins/sky-forms-pro/skyforms/css/sky-forms.css">
-<link rel="stylesheet" href="/assets/plugins/sky-forms-pro/skyforms/custom/custom-sky-forms.css">
-<link rel="stylesheet" href="/libs/tag/jquery.tagsinput.min.css">
+
+
 
 
 @endsection
@@ -32,7 +31,7 @@
                         </div><!--/container-->
                     </div><!--/breadcrumbs-->
                     <!-- Order Form -->
-                    <form action="/user/api/api-demand" method="post" enctype="multipart/form-data" id="sky-form1" class="sky-form">
+                    <form action="/user/api/api-demand" method="post" enctype="multipart/form-data" id="demandForm" class="sky-form">
                      {!! csrf_field() !!}
                         <header>招募智囊团</header>
 								
@@ -46,30 +45,12 @@
 	                        </section>
 
 
-                            <div class="row">
-                                <section class="col col-6">
-                                    <label class="input">
-                                        <i class="icon-append fa fa-calendar"></i>
-                                        <input type="text" name="start_time" id="start" placeholder="开始时间">
-                                    </label>
-                                </section>
-                                <section class="col col-6">
-                                    <label class="input">
-                                        <i class="icon-append fa fa-calendar"></i>
-                                        <input type="text" name="end_time" id="finish" placeholder="结束时间">
-                                    </label>
-                                </section>
-                            </div>
+                           
                             <section>
 								<p><label>添加标签: (合理使用标签可以更快的招募到人才哦！)</label>
 								<input id="tags_2" type="text" class="tags" name="tags" value="网红" /></p>
                             </section>
-							<section>
-							    <label class="textarea">
-							        <i class="icon-append fa fa-comment"></i>
-							        <textarea rows="2" name="desc" placeholder="简单的描述下您需要的帮助！"></textarea>
-							    </label>
-							</section>
+							
                          
 
                             <section>
@@ -103,12 +84,11 @@
 <script type="text/javascript" src="/assets/plugins/counter/waypoints.min.js"></script>
 <script type="text/javascript" src="/assets/plugins/counter/jquery.counterup.min.js"></script>
 <script type="text/javascript" src="/assets/plugins/sky-forms-pro/skyforms/js/jquery-ui.min.js"></script>
-<script src="/assets/plugins/sky-forms-pro/skyforms/js/jquery.validate.min.js"></script>
+
 <script type="text/javascript" src="/assets/plugins/scrollbar/js/jquery.mCustomScrollbar.concat.min.js"></script><script src="/assets/plugins/sky-forms-pro/skyforms/js/jquery.form.min.js"></script>
 
-<script type="text/javascript" src="/assets/js/forms/order.js"></script>
-<script type="text/javascript" src="/init/js/profile.js"></script>
-<script src="/libs/tag/jquery.tagsinput.min.js"></script>
+
+
 
 
 
