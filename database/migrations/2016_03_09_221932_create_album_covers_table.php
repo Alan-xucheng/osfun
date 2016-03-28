@@ -17,12 +17,13 @@ class CreateAlbumCoversTable extends Migration
             $table->integer('user_id');
             $table->integer('album_id');
             $table->integer('category');//分类
-            $table->string('medium');// 图文  视频 
+            $table->string('media');// 图文  视频 
             $table->string('type');
             $table->string('title');
             $table->text('desc');
             $table->text('img');
             $table->integer('post_time');
+            $table->integer('view');//浏览次数
             $table->longText('base64');
             $table->string('status');
             $table->integer('praise_num');

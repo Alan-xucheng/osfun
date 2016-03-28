@@ -14,12 +14,11 @@ class CreateDemandsTable extends Migration
     {
         Schema::create('demands', function (Blueprint $table) {
             $table->increments('id');
-           
             $table->integer('user_id');
             $table->string('status');
-            $table->text('tags');
+            $table->integer('category');
             $table->string('type');
-         
+            $table->text('src');
             $table->text('content');
             $table->timestamps();
         });

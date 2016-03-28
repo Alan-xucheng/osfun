@@ -14,6 +14,8 @@ use App\TagMap;
 use App\UserExtra;
 use App\Album;
 use App\AlbumCover;
+use App\Certification;
+use App\China;
 
 
 class HomeController extends Controller
@@ -179,6 +181,37 @@ class HomeController extends Controller
     public function getCreateVideo(){
 
         return view('user.public.create_video');
+    }
+
+
+    public function getServiceApply(){
+
+        // $china = China::all();
+
+        // foreach ($china as $key => $value) {
+            
+        //     $value->name = str_replace("市", '', $value->name);
+        //       $value->save();
+        // }
+
+  
+
+
+        $user_id = Auth::guard('user')->user()->id;
+
+        $cert = Certification::find($user_id);
+
+        if(empty($cert)){
+
+            return view('user.public.service_apply');
+        }else{
+
+            $data['certification'] = $cert;
+
+            return view('user.public.service_check',$data);
+        }
+
+        
     }
 
 

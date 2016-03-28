@@ -148,6 +148,7 @@
 
 
 @section('scripts')
+
 <script src="/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
 <script src="/plugins/select2/select2.min.js"></script>
   
@@ -156,12 +157,13 @@
 <script src="/libs/plupload-2.1.8/js/plupload.full.min.js"></script>
 <script type="text/javascript" src="/libs/plupload-2.1.8/js/jquery.ui.plupload/jquery.ui.plupload.js"></script>
 <script type="text/javascript" src="/libs/plupload-2.1.8/js/i18n/zh_CN.js"></script>
-<script type="text/javascript" src="/libs/ajaxselect/js/jquery.cxselect.js"></script>
+
 @endsection
 
 @section('jquery')
-
+    
     ProfileSocial.createVideo();
     ProfileSocial.videoForm();
+
    
 @endsection

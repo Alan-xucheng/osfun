@@ -68,6 +68,10 @@ Route::group(['middleware' => ['web', 'auth:service'], 'prefix' => 'service', 'n
 });
 Route::group(['middleware' => 'web'], function() {
     Route::get('/','Publish\HomeController@getIndex');
+    Route::get('/search/view/{sex?}/{media?}/{sort?}','Publish\HomeController@getSearchPersonal');
+    Route::get('/search/cooperation/{category?}','Publish\HomeController@getSearchCooperation');
+    Route::get('/search/academy/{category?}/{child_category?}/{media?}/{sort?}','Publish\HomeController@getSearchAcademy');
+    Route::get('/search/service/{category?}/{child_category?}/{location?}/{sort?}','Publish\HomeController@getSearchService');
     Route::auth();
     Route::controllers([
         'admin/public' => 'Admin\PublicController',
@@ -76,6 +80,8 @@ Route::group(['middleware' => 'web'], function() {
         'service/public' => 'Service\PublicController',
         'academy' => 'Publish\AcademyController',
         'view' => 'Publish\ViewController',
+        'profile' => 'Publish\ProfileController',
+        'home/service' => 'Publish\ServiceController',
     ]);
 });
 

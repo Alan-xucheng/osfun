@@ -13,6 +13,7 @@ use App\UserSkills as Skills;
 use App\UserExtra ;
 use App\Tag;
 use Storage;
+use App\User;
 use App\TagMap;
 use App\Demand;
 use App\Album;
@@ -20,6 +21,7 @@ use App\Category;
 use App\AlbumCover;
 use App\UserLike;
 use App\CommentList;
+use App\Certification;
 class ApiController extends Controller
 {
     //
@@ -131,25 +133,36 @@ class ApiController extends Controller
     }
     public function postApiDemand(){
 
-
-    	$tags = Request::input("tags");
+    	
     	$desc = Request::input('desc');
     	$content = Request::input('content');
+        $parent = Request::input('parent');
+        $child = Request::input('child');
+
+        $encoded = Request::input('image-data');
+
+        $img = $this->img_base64($encoded);
+
     	$user_id  = Auth::guard('user')->user()->id;
+
+        if(!empty($child)){
+
+            $cat_id = Category::where('name',$child)->first()->id;
+        }else{
+            $cat_id = Category::where('name',$parent)->first()->id;
+        }
     	// 储存需求
     	$demand = new Demand();
 
     	$demand ->user_id = $user_id;
-    	$demand ->tags = $tags;
- 
+        
+        $demand->category = $cat_id;
+        $demand->src = $img;
     
     	$demand ->content = $content;
 
     	$demand->save();
-    	//处理tag
-    	$tags_array =  explode(',', $tags);
 
-    	$this->deal_tags($tags_array,$demand->id);
 
     	return Tool::json_return(0,'success');
 
@@ -186,13 +199,19 @@ class ApiController extends Controller
 
         $album->content = $content;
 
+        $album->type = 'article';
+
         $album->save();
 
         $cover = AlbumCover::find($cover_id);
 
-        $cover->desc = strip_tags(mb_substr($content,0,100));
+        $cover->desc = strip_tags(mb_substr($content,0,80));
 
         $cover->post_time = time();
+
+        $cover->media = 'article';
+
+        // $cover->status = config('app.post_status');
 
         $cover->save();
 
@@ -452,7 +471,18 @@ class ApiController extends Controller
 
             $comment->save();
 
-            return Tool::json_return(0,'ok');
+            $avatar = User::find($user_id)->avatar;
+            $nickname = UserExtra::where('user_id',$user_id)->first()->nickname;
+
+            $data['avatar'] = $avatar;
+
+            $data['nickname'] = $nickname;
+
+            $data['content'] = $content;
+
+            $data['comment_id'] = $comment->id;
+
+            return Tool::json_return(0,$data);
 
         }
     public function postReplyComment(){
@@ -475,7 +505,29 @@ class ApiController extends Controller
 
             $comment->save();
 
-            return Tool::json_return(0,'ok');
+            $avatar = User::find($user_id)->avatar;
+
+            $reply_comment = CommentList::where("id",$reply_id)->first();
+
+            $reply_content = $reply_comment->content;
+
+            $reply_user = $reply_comment->user_id;
+
+            $reply_nickname = UserExtra::where('user_id',$reply_user)->first()->nickname;
+
+            $data['avatar'] = $avatar;
+
+            $data['nickname'] = UserExtra::find($user_id)->nickname;
+
+            $data['content'] = $content;
+
+            $data['comment_id'] = $comment->id;
+
+            $data['reply_nickname']  = $reply_nickname;
+
+            $data['reply_content']  = $reply_content;
+
+            return Tool::json_return(0,$data);
 
 
         }
@@ -555,9 +607,9 @@ class ApiController extends Controller
 
                 $cover->user_id = $user_id;
 
-                $cover->category = $cate->id;
+                //$cover->category = $cate->id;
 
-                $cover->medium = $medium;
+                $cover->media = 'video';
 
                 $cover->type = $type;
 
@@ -579,7 +631,7 @@ class ApiController extends Controller
 
             $album->cover_id = $cover->id;
 
-            $album->medium = $medium;
+            $album->type = $medium;
 
             $album->src = $src;
 
@@ -587,7 +639,7 @@ class ApiController extends Controller
 
             return Tool::json_return(0,'ok');  
           
-        }
+    }
 
 
 
@@ -601,7 +653,149 @@ class ApiController extends Controller
             $result = Tool::_upload_file('file','file');
 
             return $result['url'];
+    }
+
+    public function postCertificantUpload(){
+
+        $user_id = Auth::guard('user')->user()->id;
+
+        $img_cat = Request::input('type');
+
+        $cert = Certification::firstOrCreate(['user_id'=>$user_id]);
+
+        $result = Tool::_upload_file('file','file');
+
+        if($img_cat == 'frontuploader'){
+
+            $cert->front_id = $result['url'];
+
+        }else{
+
+            $cert->back_id = $result['url'];
         }
+            $cert->save();
+
+        return $result['url'];
+
+     
+    }    
+
+    public function postSaveCertification(){
+
+        $user_id = Auth::guard('user')->user()->id;
+
+        $cert = Certification::firstOrCreate(['user_id'=>$user_id]);
+
+        $parent = Request::input('parent');
+
+        $child = Request::input('child');
+
+        $pid =  Category::where('name',$parent)->first()->id;
+
+        if(!empty($child)){
+
+            $cid = Category::where('name',$child)->where('parent',$pid)->first()->id;
+
+            $cert->category = $cid;
+        }else{
+            $cert->category = $pid;
+        }
+        $province = Request::input('province');
+
+        $city = Request::input('city');
+
+        $country = Request::input('country');
+
+        $location_id = Tool::get_location_number($province);
+        
+        $cert->service_desc = Request::input('service_desc');
+
+        $cert->province = $province;
+
+        $cert->city = $city;
+
+        $cert->country = empty($country)? '':$country;
+
+        $cert->size = Request::input('size');
+
+        $cert->true_name = Request::input('truename');
+
+        $cert->service_type = Request::input('service_type');
+
+        $cert->location_id = $location_id;
+
+        $cert->status ='apply';
+
+        $cert->save();
+
+        return Tool::json_return(0,'success');
+
+
+
+    }
+
+    public function postProfile(){
+
+        $option = Request::input('option');    
+        $user_id = Auth::guard('user')->user()->id;
+
+        $data = UserExtra::where('user_id',$user_id)->first()->$option;
+
+        return Tool::json_return(0,$data);
+    }
+
+    public function postSaveNickname(){
+        $user_id = Auth::guard('user')->user()->id;
+
+        $nickname = Request::input('nickname');
+
+        UserExtra::where('user_id',$user_id)->update(['nickname'=>$nickname]);
+
+        return Tool::json_return(0,'success');
+    }
+    public function postSaveSign(){
+
+        $user_id = Auth::guard('user')->user()->id;
+
+        $nickname = Request::input('sign');
+
+        UserExtra::where('user_id',$user_id)->update(['sign'=>$nickname]);
+
+        return Tool::json_return(0,'success');
+    }
+    public function postSaveLocation(){
+
+
+        $user_id = Auth::guard('user')->user()->id;
+
+        $province = Request::input('province');
+        $city = Request::input('city')?Request::input('city'):'';
+        $country = Request::input('country')?Request::input('country'):'';
+
+        UserExtra::where('user_id',$user_id)->update(['province'=>$province,'city'=>$city,'country'=>$country]);
+
+        return Tool::json_return(0,'success');
+    }
+    public function postSaveSex(){
+
+        $user_id = Auth::guard('user')->user()->id;
+
+        $sex = Request::input('sex');
+
+        $year = Request::input('year');
+
+        $month = Request::input('month');
+
+        $day = Request::input('day');
+        $birth = strtotime($year.'-'.$month.'-'.$day);
+
+
+        UserExtra::where('user_id',$user_id)->update(["sex"=>$sex,'birth'=>$birth]);
+
+        Tool::json_return(0,'success');
+
+
+    }
 
 
 

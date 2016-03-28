@@ -3,6 +3,7 @@
 use Intervention\Image\Facades\Image;
 use Storage;
 use Request;
+use App\China;
 
 //工具类 图片上传类
 
@@ -62,4 +63,55 @@ class Tool{
 		return $result;
 
 	}
+
+	public function get_location_number($province){
+
+		return China::where('name',$province)->first()->id;
+	
+	}
+
+
+	public function _date_format($unixtime){
+
+		$today =  strtotime(date('Y-m-d',time()));
+
+		$diff = $unixtime-$today;
+
+		if($diff>0 and $diff<86400){
+
+			return "今天 ".date('H:i',$unixtime);
+
+		}elseif ($diff<0 and $diff> -86400) {
+
+			return "昨天 ".date('H:i',$unixtime);
+
+		}else{
+
+			return  date('Y-m-d H:i',$unixtime);
+		}
+
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

@@ -1,6 +1,501 @@
 var ProfileSocial = function(){
 
 	return {
+        editProfile:function(){
+            $('.edit-sex').on('shown.bs.popover', function () {
+                  ProfileSocial.setBirth();
+
+              $('#sex-del').click(function(){
+                    $('.edit-sex').popover('hide');
+              });
+              $('#sex-save').click(function(){
+                    if($('select[name="year"]').val()==0||$('select[name="month"]').val()==0||$('select[name="day"]').val()==0){
+                        $('#sexForm p.text-danger').css('display','block');
+                        console.log(1);
+                        return false;
+                    }
+                    $('.edit-sex').popover('hide');
+
+                    $.ajax({
+                        type:'post',
+                        url:'/user/api/save-sex',
+                        data:$('#sexForm').serialize(),
+                        success:function(res){
+                            console.log(res);
+                            if(res.return_code == 0){
+                                $('.edit-sex').popover('hide');
+                            }
+                        },
+                        error:function(res){
+                            console.log(res);
+                        }
+                    })
+              })
+
+            }); 
+            $('.edit-location').on('shown.bs.popover', function () {
+                  ProfileSocial.setPicker();
+
+              $('#location-del').click(function(){
+                    $('.edit-location').popover('hide');
+              });
+              $('#location-save').click(function(){
+                    if($('.signTextarea').val()==''){
+                        $('#signForm p.text-danger').css('display','block');
+                        return false;
+                    }
+                    $.ajax({
+                        type:'post',
+                        url:'/user/api/save-location',
+                        data:$('#locationForm').serialize(),
+                        success:function(res){
+                            console.log(res);
+                            if(res.return_code == 0){
+                                $('.edit-location').popover('hide');
+                            }
+                        },
+                        error:function(res){
+                            console.log(res);
+                        }
+                    })
+              })
+
+            }); 
+            $('.edit-sign').on('shown.bs.popover', function () {
+              $.ajax({
+                  type:'post',
+                  url:'/user/api/profile?option=sign',
+                  success:function(res){
+                      $('.signTextarea').html(res.return_message);
+                  },
+                  error:function(res){
+
+                  }
+              });
+              $('#sign-del').click(function(){
+                    $('.edit-sign').popover('hide');
+              });
+              $('#sign-save').click(function(){
+                    if($('.signTextarea').val()==''){
+                        $('#signForm p.text-danger').css('display','block');
+                        return false;
+                    }
+                    $.ajax({
+                        type:'post',
+                        url:'/user/api/save-sign',
+                        data:$('#signForm').serialize(),
+                        success:function(res){
+                            console.log(res);
+                            if(res.return_code == 0){
+                                $('.edit-sign').popover('hide');
+                            }
+                        },
+                        error:function(res){
+                            console.log(res);
+                        }
+                    })
+              })
+
+            });  
+            $('.edit-nickname').on('shown.bs.popover', function () {
+              $.ajax({
+                  type:'post',
+                  url:'/user/api/profile?option=nickname',
+                  success:function(res){
+                      $('input[name="nickname"]').val(res.return_message);
+                  },
+                  error:function(res){
+
+                  }
+              });
+              $('#nickname-del').click(function(){
+                    $('.edit-nickname').popover('hide');
+              });
+              $('#nickname-save').click(function(){
+                    if($('#nicknameForm input[name="nickname"]').val()==''){
+                        $('p.text-danger').css('display','block');
+                        return false;
+                    }
+                    $.ajax({
+                        type:'post',
+                        url:'/user/api/save-nickname?option=nickname',
+                        data:$('#nicknameForm').serialize(),
+                        success:function(res){
+                            if(res.return_code == 0){
+                                $('.edit-nickname').popover('hide');
+                            }
+                        },
+                        error:function(res){
+                            console.log(res);
+                        }
+                    })
+              })
+
+            })    
+            $('.edit-nickname').popover({
+                animation:true,
+                html:true,
+                content:function(){
+                    
+                    var str ='<form class="sky-form" id="nicknameForm" style="border:none">';
+                         str+='<section><label class="label">编辑昵称</label>';
+                         str+='<label class="input">';
+                    
+                         str+='<input type="text" name="nickname"><p class="text-danger" style="color:#a94442;display:none">请输入昵称！</p>';
+                         str+='</label></section>';
+                         
+                         str+='<a class="btn-u btn-u-xs" style="margin-right:5px;" id="nickname-save" type="button">确定</a>';
+                         str+='<a class="btn-u btn-u-xs btn-u-default" id="nickname-del" type="button">取消</a>';
+                         // str+='<button class="btn-u" type="button">Button Dark Blue</button></footer>';
+                         str+='</form>';
+
+
+                    return str;
+                }
+            });
+            $('.edit-sign').popover({
+                animation:true,
+                html:true,
+                content:function(){
+                    
+                    var str ='<form class="sky-form" id="signForm" style="border:none" >';
+                         str+='<section><label class="label">编辑个性签名</label>';
+                         str+='<label class="input">';
+                    
+                         str+='<textarea rows="3" style="width:200px" name="sign" class="signTextarea"></textarea><p class="text-danger" style="color:#a94442;display:none">请输入个性签名！</p>';
+                         str+='</label></section>';
+                         
+                         str+='<a class="btn-u btn-u-xs" style="margin-right:5px;" id="sign-save" type="button">确定</a>';
+                         str+='<a class="btn-u btn-u-xs btn-u-default" id="sign-del" type="button">取消</a>';
+                         // str+='<button class="btn-u" type="button">Button Dark Blue</button></footer>';
+                         str+='</form>';
+
+
+                    return str;
+                }
+            });
+            $('.edit-location').popover({
+                animation:true,
+                html:true,
+                content:function(){
+                    
+                    var str ='<form class="sky-form" id="locationForm" style="border:none;width:400px;">';
+                         str+='<section><label class="label">所在地</label><div class="row" id="city">';
+                        str+='<section class="col col-2" style="width:120px;"><label class="select">省<select name="province" class="prov"></select></label></section>';
+
+                        str+='<section class="col col-2" style="width:120px;"><label class="select">市<select name="city" class="city"></select></label></section>';
+
+                        str+='<section class="col col-2" style="width:120px;"><label class="select">县<select name="country" class="dist"></select></label></section>';
+                                    
+                        str+='</div></section>';
+                         
+                         str+='<a class="btn-u btn-u-xs" style="margin-right:5px;" id="location-save" type="button">确定</a>';
+                         str+='<a class="btn-u btn-u-xs btn-u-default" id="location-del" type="button">取消</a>';
+                         // str+='<button class="btn-u" type="button">Button Dark Blue</button></footer>';
+                         str+='</form>';
+
+
+                    return str;
+                }
+            });
+            $('.edit-sex').popover({
+                animation:true,
+                html:true,
+                content:function(){
+                    
+                    var str ='<form class="sky-form" id="sexForm" style="border:none;width:400px;">';
+                        str+='<section><label class="label">性别</label>';
+                        str+='<label class="select">';
+                        
+                        str+='<select class="form-control" name="sex" style="width:100px"><option value="male">男</option><option value="female">女</option></select>';
+                        str+='</label></section>';
+                         str+='<section><label class="label">生日</label><div class="row">';
+                        str+='<section class="col col-2" style="width:120px;"><label class="select"><select name="year" id="sel_year"></select></label></section>';
+
+                        str+='<section class="col col-2" style="width:120px;"><label class="select"><select name="month" id="sel_month"></select></label></section>';
+
+                        str+='<section class="col col-2" style="width:120px;"><label class="select"><select name="day" id="sel_day"></select></label></section>';
+                                    
+                        str+='</div></section><p class="text-danger" style="color:#a94442;display:none">请按照要求填写！</p>';
+                         
+                         str+='<a class="btn-u btn-u-xs" style="margin-right:5px;" id="sex-save" type="button">确定</a>';
+                         str+='<a class="btn-u btn-u-xs btn-u-default" id="sex-del" type="button">取消</a>';
+                         // str+='<button class="btn-u" type="button">Button Dark Blue</button></footer>';
+                         str+='</form>';
+
+
+                    return str;
+                }
+            });
+        },
+        serviceSearch:function(){
+            $('.location-btn').click(function(){
+
+               $('.location-line').css('height',"55px");
+            })
+        },
+        certificantForm:function(){
+            $("#certificationForm").validate({
+                // Rules for form validation
+                rules:
+                {         
+                    service_desc:
+                    {
+                        required:true
+                    },
+                    parent:
+                    {
+                        required:true
+                    },
+                    child:
+                    {
+                        required:true
+                    },
+                    size:
+                    {
+                        required:true
+                    },
+                    service_type:
+                    {
+                        required:true
+                    },
+                    province:
+                    {
+                        required:true
+                    },
+                    city:
+                    {
+                        required:true
+                    },
+                    truename:
+                    {
+                        required:true
+                    },
+                    front_data:
+                    {
+                        required:true
+                    },
+                    back_data:
+                    {
+                        required:true
+                    }
+                },
+                                    
+                // Messages for form validation
+                messages:
+                {
+                  
+                     service_desc:
+                     {
+                         required:"请填写"
+                     },
+                     parent:
+                     {
+                         required:"请填写"
+                     },
+                     child:
+                     {
+                         required:"请填写"
+                     },
+                     size:
+                     {
+                         required:"请填写"
+                     },
+                     service_type:
+                     {
+                         required:"请填写"
+                     },
+                     province:
+                     {
+                         required:"请填写"
+                     },
+                     city:
+                     {
+                         required:"请填写"
+                     },
+                     truename:
+                     {
+                         required:"请填写"
+                     },
+                     front_data:
+                     {
+                        required:'请上传图片'
+                     },
+                     back_data:
+                     {
+                        required:'请上传图片'
+                     }
+                },
+
+                // Ajax form submition
+                submitHandler: function(form)
+                { 
+                    $.ajax(
+                    {
+                        type:'post',
+                        data:$("#certificationForm").serialize(),
+                        url:'/user/api/save-certification',
+                        success:function(res){
+                            console.log(res);
+                            //window.location = '/user/home/profile-album';
+                        },
+                        error:function(){
+
+                        }
+                     
+                    });
+                    return false;
+                },
+
+                
+                // Do not change code below
+                errorPlacement: function(error, element)
+                {
+                    error.insertAfter(element.parent());
+                }
+            });
+        },
+
+        imgUpload:function(obj){
+           var operate = $('#'+obj).parent('section').siblings('section').children('div.bg-light');
+ 
+           var uploader = new plupload.Uploader({
+              // General settings
+              browse_button:obj,
+              runtimes : 'html5,flash,silverlight,html4',
+              url : '/user/api/certificant-upload?type='+obj,
+              headers: {
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  },
+
+              // User can upload no more then 20 files in one go (sets multiple_queues to false)
+              max_file_count: 20,
+              
+             
+
+              // Resize images on clientside if we can
+              // resize : {
+              //   width : 212, 
+              //   height : 159, 
+              //   quality : 90,
+              //   crop: false // crop to exact dimensions
+              // },
+              
+              filters : {
+                // Maximum file size
+                max_file_size : '6mb',
+                // Specify what files to browse for
+                mime_types: [
+                  {title : "Image files", extensions : "jpg,gif,png,mov"},
+                  {title : "Zip files", extensions : "zip"}
+                ]
+              },
+
+              // Rename files by clicking on their titles
+              rename: true,
+              
+              // Sort files
+              sortable: true,
+
+              // Enable ability to drag'n'drop files onto the widget (currently only HTML5 supports that)
+              dragdrop: true,
+
+              // Views to activate
+              views: {
+                list: true,
+                thumbs: true, // Show thumbs
+                active: 'thumbs'
+              },
+              init:{
+                FilesAdded:function(up,file){
+
+                    operate.children('img').css('display','none');
+
+                    operate.children('div.loader').css('display','block');
+
+              
+                    uploader.start();
+                },
+                UploadProgress:function(up,file){
+
+                },
+                FileUploaded:function(up,file,result){
+                  
+                   if(result.status == 200){
+
+                        operate.children('img').css('display','block');
+                        operate.children('div.loader').css('display','none');
+
+                        if(obj == 'frontuploader'){
+                          
+                            $('input[name="front_data"]').val(result.response);    
+                            $('#front-img').attr('src',result.response);
+                        }else{
+                            $('input[name="back_data"]').val(result.response); 
+                            $('#back-img').attr('src',result.response);                        
+                        }
+
+                   }
+                },
+                Error:function(up,error){
+
+                }
+              },
+
+
+              // Flash settings
+              flash_swf_url : '../../js/Moxie.swf',
+
+              // Silverlight settings
+              silverlight_xap_url : '../../js/Moxie.xap'
+            });
+            uploader.init();
+
+            },
+        certificantUpload:function(){
+            $('#cate').cxSelect({ 
+              url: '/api/service-category',               // 如果服务器不支持 .json 类型文件，请将文件改为 .js 文件 
+              selects:  ['parent', 'child'],
+              jsonName: 'name',
+            });    
+
+            ProfileSocial.imgUpload('frontuploader');
+            ProfileSocial.imgUpload('backuploader');
+        },
+
+        initCooperation:function(){
+            var wookmark;
+            imagesLoaded('#container', function() {
+              wookmark = new Wookmark('#container', {
+                fillEmptySpace: true // Optional, fill the bottom of each column with widths of flexible height
+              });
+            });
+
+            // Setup filter buttons when jQuery is available
+            var $filters = $('#filters li');
+
+            /**
+             * When a filter is clicked, toggle it's active state and refresh.
+             */
+            var onClickFilter = function(event) {
+              var $item = $(event.currentTarget),
+                  itemActive = $item.hasClass('active');
+
+              if (!itemActive) {
+                $filters.removeClass('active');
+                itemActive = true;
+              } else {
+                itemActive = false;
+              }
+              $item.toggleClass('active');
+
+              // Filter by the currently selected filter
+              wookmark.filter(itemActive ? [$item.data('filter')] : []);
+            }
+
+            // Capture filter click events.
+            $('#filters').on('click.wookmark-filter', 'li', onClickFilter);
+        },
         videoForm:function(){
             $("#videoForm").validate({
                 // Rules for form validation
@@ -353,6 +848,14 @@ var ProfileSocial = function(){
                 }
             });
         },
+        setBirth:function(){
+            $.ms_DatePicker({
+                    YearSelector: ".sel_year",
+                    MonthSelector: ".sel_month",
+                    DaySelector: ".sel_day"
+            });
+            $.ms_DatePicker();
+        },
 
         setPicker:function(){
             $.ms_DatePicker({
@@ -374,30 +877,50 @@ var ProfileSocial = function(){
         },
         delComment:function(){
             $('.del-comment').click(function(){
+                var obj = $(this).parents('div.my-comment-box');
                 var comment_id = $(this).attr('value');
-                $.ajax({
-                    type:'post',
-                    data:{'comment_id':comment_id},
-                    url:'/user/api/del-comment',
-                    success:function(res){
-                        console.log(res);
-                    },
-                    error:function(){
+                $.confirm({
+                       title: '确认删除',
+                       content:"是否删除该条评论",
+                       confirmButton: '确定',
+                       cancelButton:'取消',
+                       confirmButtonClass: 'btn-danger',
+                       animation: 'scale',
+                       animationClose: 'top',             
+                       opacity: 0.5,
+                       confirm:function(){
+                           
+                           $.ajax({
+                               type:'post',
+                               data:{'comment_id':comment_id},
+                               url:'/user/api/del-comment',
+                               success:function(res){
+                                   obj.remove();
+                               },
+                               error:function(){
 
-                    }
-                })
+                               }
+                           })
+                           
+
+
+                         
+
+                       }
+
+                   })
+              
             })
         },
         replyAlbum:function(){
             $('.reply').click(function(){
                 var reply_id = $(this).attr('value');
                 var name = $(this).parents('div.comment-userinfo').children('h3').children('a').html();
-                var obj = $('textarea[name="reply_id"]');
+                var obj = $('#replyForm');
                 var post_id = $(this).attr('post');
                 var len = obj.length;
                 obj.remove();
-                var dom = '<form id="replyForm"><input type="hidden" name="post_id" value="'+post_id+'"><input type="hidden" name="reply_id" value="'+reply_id+'"><textarea class="form-control" placeholder="@'+name+'" name="content" rows="4"></textarea><button type="submit" class="btn-u btn-u-blue pull-right">发送</button></form>';
-                   
+                var dom = '<form id="replyForm" style="padding-top:30px;"><input type="hidden" name="post_id" value="'+post_id+'"><input type="hidden" name="reply_id" value="'+reply_id+'"><textarea class="form-control" placeholder="@'+name+'" name="content" rows="4"></textarea><button type="submit" class="btn btn-sm rounded btn-info pull-right">发送</button></form>';
                 $(this).parents('div.clearfix').append(dom);
                 ProfileSocial.replyForm();
 
@@ -440,8 +963,28 @@ var ProfileSocial = function(){
                         data:$("#replyForm").serialize(),
                         url:'/user/api/reply-comment',
                         success:function(res){
-                            console.log(res);
-                            //window.location = '/user/home/profile-project';
+                        console.log(res);
+                           var obj = $('#comment');
+                           var str='<div class="my-comment-box"><div class="content-boxes-v3 margin-bottom-10 md-margin-bottom-20 row" style="padding:0 30px;">';
+                                 str+= '<div class="col-md-1"><img class="comment-face rounded-x" src="'+res.return_message.avatar+'" alt=""></div>';
+                                 str+= '<div class="content-boxes-in-v3 col-md-11 comment-userinfo">';
+                                 str+= '<h3><a href="#">'+res.return_message.nickname+'</a></h3> ';
+                                 str+= '<p class="my-reply">@<span>'+res.return_message.reply_nickname+'</span>'+res.return_message.reply_content+'</p>';
+                                 str+= '<p>'+res.return_message.content+'</p>';
+                                 str+= ' <div class="clearfix">';
+                                 str+= '<span style="color:#555" class="pull-left">刚刚</span>';
+                                 str+= '<span style="color:#555;" class="pull-right">';
+                                 str+= '<a value="'+res.return_message.comment_id+'" class="del-comment" href="javascript:;">删除</a>';
+                                 str+= '</span>';
+                                 str+= '</div>';  
+                                 str+= ' </div>';
+                                 str+= '</div><hr class="devider devider-dashed"></div>';
+
+                           obj.prepend(str); 
+                           
+                           $("#replyForm")[0].reset();
+
+                           ProfileSocial.delComment();     
                         },
                         error:function(){
 
@@ -498,6 +1041,25 @@ var ProfileSocial = function(){
                         url:'/user/api/add-comment',
                         success:function(res){
                             console.log(res);
+                            var obj = $('#comment');
+                    var str='<div class="my-comment-box"><div class="content-boxes-v3 margin-bottom-10 md-margin-bottom-20 row" style="padding:0 30px;">';
+                        str+= '<div class="col-md-1"><img class="comment-face rounded-x" src="'+res.return_message.avatar+'" alt=""></div>';
+                        str+= '<div class="content-boxes-in-v3 col-md-11 comment-userinfo">';
+                        str+= '<h3><a href="#">'+res.return_message.nickname+'</a></h3> ';
+                        str+= '<p>'+res.return_message.content+'</p>';
+                        str+= ' <div class="clearfix">';
+                        str+= '<span style="color:#555" class="pull-left">刚刚</span>';
+                        str+= '<span style="color:#555;" class="pull-right">';
+                        str+= '<a value="'+res.return_message.comment_id+'" class="del-comment" href="javascript:;">删除</a>';
+                        str+= '</span>';
+                        str+= '</div>';  
+                        str+= ' </div>';
+                        str+= '</div><hr class="devider devider-dashed"></div>';
+
+                        obj.prepend(str);
+                        $("#commentForm")[0].reset();
+
+                        ProfileSocial.delComment();
                             //window.location = '/user/home/profile-project';
                         },
                         error:function(){
@@ -519,7 +1081,53 @@ var ProfileSocial = function(){
                 }
             });
         },
+        praiseUserInfo:function() {
+            var post_id = $('meta[name="post_id"]').attr("content");
+             $.ajax({
+                type:'post',
+                data:{"post_id":post_id},
+                url:'/api/praise-userinfo',
+                success:function(res){
+                   console.log(res);
+                    template.config('escape',false);
+                    template.config('compress',true);
+                    var data = res;
+                    
+                    var html = template('praiseUser',data);
+                    document.getElementById('userinfo-content').innerHTML = html;
+                    
+                },
+                error:function(){
+
+                }
+            });
+           
+        },
+        templateComment:function(){
+
+             $.ajax({
+                type:'post',
+                data:{"post_id":post_id},
+                url:'/api/comment-template',
+                success:function(res){
+                   console.log(res);
+                    template.config('escape',false);
+                    template.config('compress',true);
+                    var data = res;
+                    
+                    var html = template('praiseUser',data);
+                    document.getElementById('userinfo-content').innerHTML = html;
+                    
+                },
+                error:function(){
+
+                }
+            });
+
+        },
         praiseFunc:function(){
+            ProfileSocial.praiseUserInfo();
+           
             $('.praise').click(function(){
                 var obj = $(this);
                 var post_id = $(this).attr('value');
@@ -541,9 +1149,11 @@ var ProfileSocial = function(){
                             if(status){
                                 obj.removeClass('praise-active');
                                 obj.children('span').html('喜欢');
-                                obj.children('div.praise-num').html(num-1)
+                                obj.children('div.praise-num').html(num-1);
+                                ProfileSocial.praiseUserInfo();
 
                             }else{
+                                ProfileSocial.praiseUserInfo();
                                 obj.addClass('praise-active');
                                 obj.children('span').html('已喜欢');
                                 obj.children('div.praise-num').html(num+1)
@@ -783,8 +1393,90 @@ var ProfileSocial = function(){
             })
          
         },
-
         PostDemand:function(){
+            $('#postDemand,#pageDemand').click(function(){
+                var str= '<div class="row"><form action="/user/api/api-demand" method="post" enctype="multipart/form-data" id="demandForm" class="sky-form">';          
+                        str+='<fieldset>';
+                        str+=  '<section><div class="row"><label class="label col col-2">分类</label><div id="demandCate">';
+                        str+=  '<section class="col col-5"><label class="select"><select class="parent " name="parent" ></select></label></section>';
+                        str+=  '<section class="col col-5"><label class="select"><select class="child " name="child"></select></label>';
+                        str+=  '</section></div></div></section>';
+                        str+=   '<section><div class="row"><label class="label col col-2">详情</label>';
+                        str+=   '<section class="col col-10"><label class="textarea"><i class="icon-append fa fa-comment"></i><textarea rows="5" name="content" placeholder="清楚说明你的帮助！"></textarea></label></section>';
+                        str+=    '</section>';
+                        str+='<div class="demand-img">';
+                        str+='<section><label class="input input-file"><div class="button" style="cursor:pointer"><input  type="file" id="file" class="cropit-image-input">选择图片</div></label></section>';
+                        str+='<section class="text-center"><div class="cropit-preview"></div></section>';
+                        str+='<div class="slider-wrapper"><span class="rotate-btns"><i style="cursor:pointer" class="fa fa-rotate-left rotate-ccw-btn"></i><i style="cursor:pointer" class="fa fa-rotate-right rotate-cw-btn"></i></span><i class="fa fa-file-image-o"></i><input type="range" class="cropit-image-zoom-input" min="0" max="1" step="0.01"><i style="font-size:20px;" class="fa fa-file-image-o"></i></div>';
+                        str+='<input type="hidden" name="image-data" class="hidden-image-data" />';
+                        str+='</div>';    
+                        str+='</fieldset>';
+                        str+='</form></div>';
+                                  
+                var jc = $.confirm({
+                      title: '找合作',
+                      content: str,
+                      confirmButton: '发布',
+                      cancelButton:'取消',
+                      confirmButtonClass: 'btn-danger',
+                      icon: 'fa fa-question-circle',
+                      animation: 'scale',
+                      animationClose: 'top',
+                      columnClass:'col-md-6 demand-col col-md-offset-3',
+                      opacity: 0.5,
+                      onOpen:function(){
+                         $('#demandCate').cxSelect({ 
+                              url: '/api/demand-category',               // 如果服务器不支持 .json 类型文件，请将文件改为 .js 文件 
+                              selects:  ['parent', 'child'],
+                              jsonName: 'name',                            
+                            });
+                         $('.demand-img').cropit({
+                            
+                         
+                            onImageLoading:function(){
+                                console.log(1);
+                            },
+                            onImageLoaded:function(){
+                                console.log(2);
+                            }
+                         });
+                         $('.rotate-ccw-btn').click(function(){
+                          $('.demand-img').cropit('rotateCW');
+                         })  
+                          $('.rotate-cw-btn').click(function(){
+                          $('.demand-img').cropit('rotateCCW');
+                         })  
+                           
+
+                       ProfileSocial.initDemand();
+                     
+                      },
+                      confirm:function(){
+                             var imageData = $('.demand-img').cropit('export');
+                             $('.hidden-image-data').val(imageData);
+
+                        $.ajax(
+                        {
+                            type:'post',
+                            data:$('#demandForm').serialize(),
+                            url:'/user/api/api-demand',
+                            success:function(res){
+                                console.log(res);
+                                //window.location = '/user/home/profile-project';
+                            },
+                            error:function(){
+
+                            }
+                         
+                        });
+
+                       
+                  }
+
+              })
+            })
+        },
+        PostDemand2:function(){
             $('#postDemand,#pageDemand').click(function(){
                 var str= '<div class="row"><form action="/user/api/api-demand" method="post" enctype="multipart/form-data" id="demandForm" class="sky-form">';
                      
@@ -841,7 +1533,8 @@ var ProfileSocial = function(){
             })
         },
         AlbumCropit:function(){
-                $('.album-cover').cropit();
+                var AlbumImg = $('.album-cover').cropit();
+                // img.cropit('previewSize');
 
 
         },
@@ -978,7 +1671,8 @@ var ProfileSocial = function(){
 
                                     },
                                     confirm:function(){
-                                             var imageData = $('.album-cover').cropit('export');
+                                           var imageData = $('.album-cover').cropit('export');
+
                                             $('.hidden-image-data').val(imageData);
                                            var input = this.$b.find('input#title');
                                            var img = this.$b.find('input#img')

@@ -1,7 +1,7 @@
   <!--=== Header v8 ===-->
     <div class="header-v8 header-sticky">
         <!-- Topbar blog -->
-        <div class="blog-topbar">
+        <div class="blog-topbar my-topbar">
             <div class="topbar-search-block">
                 <div class="container">
                     <form action="">
@@ -13,8 +13,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-sm-8 col-xs-8">
-                     
-                      
+
 
                     </div>
                     <div class="col-sm-4 col-xs-4 clearfix">
@@ -27,7 +26,7 @@
                              <li>
                                  <a href="javascript:void(0);">{{ Auth::guard('user')->user()->name}}</a>
                                  <ul class="topbar-dropdown">
-                                     <li><a href="javascript:;" id="postDemand">发布需求</a></li>
+                                   
                                      <li><a href="{{'/user/public/logout'}}">退出</a></li>
                                    
                                  </ul>
@@ -44,7 +43,7 @@
         <!-- End Topbar blog -->
 
         <!-- Navbar -->
-        <div class="navbar mega-menu" role="navigation">
+        <div class="navbar mega-menu" role="navigation" >
             <div class="container">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="res-container">
@@ -94,8 +93,8 @@
                             <!-- End Home -->
 
                             <!-- World -->
-                            <li class="{{_IS_ACTIVE(url('/academy'))}}">
-                                <a href="{{url('/academy')}}" >
+                            <li class="{{_IS_ACTIVE(url('/search/academy'))}}">
+                                <a href="{{url('/search/academy')}}" >
                                     学院
                                 </a>
                               
@@ -104,21 +103,21 @@
                             <!-- End World -->
 
                             <!-- Fashion -->
-                           <li class="{{_IS_ACTIVE(url('/view'))}}">
-                               <a href="{{url('/view')}}" >
-                                   个人秀
+                           <li class="{{_IS_ACTIVE(url('/search/view'))}}">
+                               <a href="{{url('/search/view')}}" >
+                                   圈子
                                </a>
                              
                            </li>
                             <!-- End Fashion -->
-                            <li class="{{_IS_ACTIVE(url('/view'))}}">
-                                <a href="{{url('/view')}}" >
-                                    网红圈
+                <!--             <li class="{{_IS_ACTIVE(url('/search/cooperation'))}}">
+                                <a href="{{url('/search/cooperation')}}" >
+                                    招募
                                 </a>
                               
-                            </li>
-                             <li class="{{_IS_ACTIVE(url('/service'))}}">
-                                <a href="{{url('/service')}}">
+                            </li> -->
+                             <li class="{{_IS_ACTIVE(url('/search/service'))}}">
+                                <a href="{{url('/search/service')}}">
                                     服务
                                 </a>
                               
@@ -132,8 +131,9 @@
                                       <button class="btn-u btn-u-orange btn-sm" type="button"><i class="fa fa-rss "></i>&nbsp;发布</button>
                                   </a>
                                   <ul class="dropdown-menu demand" >
-                                      <li><a href="feature_parallax_blocks.html">发布需求</a></li>
-                                      <li><a href="feature_funny_boxes.html">发布个人秀</a></li>
+                                      <li><a href="javascript:;" id="postDemand">我要招募</a></li>
+                                      <li><a href="/user/home/profile-album?type=experience">教程教学</a></li>
+                                      <li><a href="/user/home/profile-album?type=personal">个人秀</a></li>
                                   </ul>
                             </li>
                               

@@ -11,9 +11,11 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="author" contect="xucheng, jobxucheng@gmail.com" />
     @yield('meta')
     <!-- Favicon -->
-    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="shortcut icon" href="/assets/img/logo1-default.png">
 
     <!-- Web Fonts -->
 
@@ -31,6 +33,7 @@
     <link rel="stylesheet" href="/assets/plugins/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/libs/confirm/dist/jquery-confirm.min.css">
     <link rel="stylesheet" href="/libs/loading/loaders.css">
+    <link rel="stylesheet" href="/plugins/select2/select2.min.css">
     <link rel="stylesheet" href="/assets/plugins/sky-forms-pro/skyforms/css/sky-forms.css">
     <link rel="stylesheet" href="/assets/plugins/sky-forms-pro/skyforms/custom/custom-sky-forms.css">
     <link rel="stylesheet" href="/libs/tag/jquery.tagsinput.min.css">
@@ -151,6 +154,7 @@
 <!-- JS Implementing Plugins -->
 <script type="text/javascript" src="/assets/plugins/back-to-top.js"></script>
 <script type="text/javascript" src="/assets/plugins/smoothScroll.js"></script>
+<script type="text/javascript" src="/plugins/select2/select2.js"></script>
 
 <!-- JS Customization -->
 <script type="text/javascript" src="/assets/js/custom.js"></script>
@@ -163,6 +167,7 @@
 <script src="/assets/plugins/sky-forms-pro/skyforms/js/jquery.validate.min.js"></script>
 <script type="text/javascript" src="/assets/js/forms/order.js"></script>
 <script src="/libs/cropit/jquery.cropit.js"></script>
+<script type="text/javascript" src="/libs/ajaxselect/js/jquery.cxselect.js"></script>
 @yield('scripts')
 <script type="text/javascript" src="/init/js/profile.js"></script>
 <script type="text/javascript">

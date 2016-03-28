@@ -104,8 +104,17 @@
                                   @foreach($covers as $key=>$cover)
                                     <tr>
                                         <td class="col-md-1">{{$key+1}}</td>
-                                    
-                                        <td class="col-md-6">{{$cover->title}}</td>
+                                        <td class="col-md-1"><i class="fa {{$cover->media=='video'?'fa-film':'fa-file-word-o'}}"></i></td>
+                                        <td class="col-md-1">
+                                        @if($cover->status !='publish')
+                                        <span class="label rounded label-danger">等待审核</span>
+                                        @else
+                                        <span class="label rounded label-success">发布中</span>
+                                        @endif
+
+                                        </td>
+                                        <td class="col-md-4">{{$cover->title}}</td>
+                                      
                                         <td class="col-md-2">{{date('Y-m-d',$cover->post_time)}}</td>
                                         <td class="col-md-3">
                                           <a href="/user/home/album-detail?album={{$cover->id}}" style="color:#fff;"class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i> 编辑</a>

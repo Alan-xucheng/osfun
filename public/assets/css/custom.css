@@ -1,12 +1,60 @@
 /*/* Add here all your css styles (customizations) */
+a,a:hover{
+  text-decoration: none;
+  color:#999;
+}
 .face-img{
 
 	box-shadow: 0px 0px 10px #fff;
 }
+.testimonials-v6 .testimonials-info{
+  border-bottom: none;
+  background-color: inherit;
+}
+.breadcrumbs ul li a {
+  font-size: 14px;
+}
+.my-topbar .container, .blog-topbar .container-fluid{
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
 .face-img:hover{
 
 	box-shadow: 0px 0px 10px #eb7350;
 }
+.demand-col {
+  width: 500px;
+}
+.demand-col .content{
+  padding-top: 0;
+  padding-bottom: 0;
+  height: 600px;
+}
+.demand-col form{
+  border:none;
+}
+#demandForm section{
+  margin-bottom: 10px;
+}
+#demandForm .slider-wrapper {
+    position: absolute;
+    left: 50%;
+    bottom: 20px;
+    margin-left: -184px;
+}
+#demandForm .cropit-preview {
+    background-color: #f8f8f8;
+    background-size: cover;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-top: 7px;
+    left:50%;
+    margin-left: -132px;
+    width: 200px;
+    height: 300px;
+    text-align: center;
+  }
 #videoCover .cropit-preview {
     background-color: #f8f8f8;
     background-size: cover;
@@ -26,6 +74,9 @@
     left:50%;
     margin-left: -46px;
 }
+.blog-img{
+  max-width: 160px;
+}
 #coverForm .cropit-preview {
     background-color: #f8f8f8;
     background-size: cover;
@@ -34,8 +85,8 @@
     margin-top: 7px;
     left:50%;
     margin-left: -230px;
-    width: 295px;
-    height: 186px;
+    width: 293px;
+    height: 184px;
     text-align: center;
   }
 .rotate-btns{
@@ -170,6 +221,9 @@
     margin-top: 10px;
     width: 900px;
   }
+  .user-info{
+    margin:5px 0;
+  }
 
   #result-data {
     display: block;
@@ -178,7 +232,55 @@
     text-overflow: ellipsis;
     word-wrap: break-word;
   }
+ .article-box{
+  margin-right: 10px;
+  color:#444;
+ } 
+    .blog h4{
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  .blog  a,.blog p,.blog  a:hover{
+    text-decoration: none;
+    color:#444;
+      }
+body.header-fixed-space-v2 {
+    padding-top: 111px;
+}
+@media (max-width: 991px){
+  body.header-fixed-space, body.header-fixed-space-v2 {
+    padding-top: 0;
+}
+}
+.profile-bread{
+  background: -webkit-linear-gradient(#534540 0%,#534540 100%);
+  padding-bottom: 0;
+}
 
+.header-v8 .navbar-nav > li > a{
+  padding:20px;
+  line-height: 30px;
+}
+.hover-effect,.hover-effect:hover{
+  color:#555;
+  padding-left: 4px;
+  text-decoration: none;
+}
+.m-video-box{
+  /*background-color: #FCFCFC;*/
+  padding:5px;
+  box-shadow: 0 0 0 2px #f9f9f9;
+  cursor: pointer;
+}
+
+.m-video-box:hover{
+  background-color: #f9f9f9;
+}
+.header-v8 .navbar-brand{
+  height: 70px;
+  max-height: 70px;
+  line-height: 36px;
+}
 
  .demand-menu button.btn-u{
  	background-color: #fff!important;
@@ -195,22 +297,37 @@
 	display: inline-block;
 	text-decoration: none;
 	font-size:14px;
-	padding:3px 7px;
+	padding:3px 8px;
 	color:#fff;
-	background-color: #3498db;
-	border-radius: 2px;
+	background-color: #4BD;
+	border-radius: 1px;
+ }
+ .user-v{
+  width: 15px;
+  margin-left: 5px;
+
+  height: 15px;
+  border-radius: 15px;
+  display: inline-block;
+  background-color: #4BD;
+  padding-left: 1px;
+  padding-top: -3px;
+  padding-bottom: 10px;
+ }
+ .user-v i{
+
+  font-size: 10px;
+  color: #fff;
  }
   .academy-list ul li a{
-
+  line-height: 2.0;
 	text-decoration: none;
  }
  .academy-list ul li a:hover{
 	color:#3498db;
 	text-decoration: none;
  }
- .th-footer{
- 	background-color: #FCFCFC;
- }
+ 
   .th-footer div{
   	color:#bbb;
   }
@@ -221,13 +338,25 @@
 }
 .praise-box .praise span{
   color:#555;
-  font-size: 28px;
+  font-size: 20px;
+}
+.praise-box .post-share{
+  padding-top: 13px;
+  height: 60px;
+  background-color: #fff;
+  border:1px solid #eee;
+}
+.praise-user{
+  background: #fff;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
 .praise-box .praise{
-  height: 70px;
-  padding:6px 0 0 30px;
+  height: 60px;
+  padding:0px 0 0 0px;
   font-size: 14px;
   line-height: 14px;
+  padding-bottom: 5px;
   border:1px solid #eee;
   cursor: pointer;
   background-color: #fff;
@@ -247,7 +376,7 @@
 .praise-num{
   position:relative;
   top:50%;
-  margin-top:-9px;
+  margin-top:-2px;
   right:8px;
   color:#555;
 }
@@ -286,7 +415,146 @@
 .video-body button{
 	width: 293px;
 }
+.co-margin{
+  font-size:12px;
+  margin-top: 10px;
+}
+.co-margin p{
+  margin-top: 10px;
+}
+.co-normal{
 
+}
+/*.co-margin span{
+  margin:0 5px;
+}
+*/
+.page-nav li {
+  text-align: center;
+  background-color: #756A66;
+  height: 53px;
+
+}
+.page-nav li:hover{
+  
+  background-color: #A2918A;
+  
+
+}
+.page-nav li.active{
+  background-color: #fff;
+  color:#534540 ;
+}
+.page-nav li.active a,.page-nav li.active p{
+
+  color:#555 ;
+}
+.page-nav{
+
+}
+.page-nav ul li {
+padding-top: 6px;
+cursor: pointer;
+}
+.article-img{
+  max-width: 130px;
+}
+.page-nav ul li a {
+    color:#fff;
+  font-size:16px;
+}
+.page-nav ul li p{
+    color:#fff;
+  font-size:14px;
+}
+.profile-bread .testimonials-v6 .testimonials-desc p{
+
+  margin-bottom: 0;
+  color:#fff;
+}
+.my-box:hover{
+  background-color: #f9f9f9;
+}
+.my-box,.my-box:hover{
+  cursor: pointer;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #f9f9f9;
+  padding-top: 15px;
+}
+.my-select-box{
+
+  height: 150px;
+  border: 1px solid #9f9f9f;
+}
+.certificant-loader div{
+  top:76px;
+}
+.my-certificant-box .loader{
+  display: none;
+  
+}
+.location-btn{
+  cursor: pointer;
+  position: absolute;
+  right:0px;
+  top:5px;
+  font-size: 14px;
+  color:#4BD;
+  z-index: 99;
+}
+.service_info{
+  margin-left: 120px;
+  margin-top: 10px;
+}
+.service_content{
+  background: #fff;
+  padding-top:15px;
+  padding-bottom: 15px;
+}
+.service_progress{
+  padding-left: 10px;
+  margin-top: 15px;
+}
+.service_progress .service_box{
+  margin-left: 20px;
+}
+.service_progress button{
+  display: inline-block;
+  margin-right: 10px !important;
+}
+/*.my-shadow-wrapper  img{
+  max-height: 150px;
+}*/
+/*.location-line{
+  height: 34px;
+  overflow:hidden;
+}*/
+
+.edit-nickname,.edit-location,.edit-sign,.edit-sex{
+ 
+  display: none;
+}
+.permission-edit:hover i.fa{
+  display: inline-block;
+  cursor: pointer;
+   margin-left: 6px;
+
+}
+.permission-edit {
+  overflow: visible!important;
+}
+.popover{
+  max-width: 400px;
+}
+.popover-content section{
+  margin-bottom: 5px;
+}
+.comment-all{
+  margin-left: 30px;
+  padding-top:15px;
+  font-weight: 500;
+  color: #4bf;
+}
 
 
 

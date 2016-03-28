@@ -151,6 +151,22 @@ if (! function_exists('_IS_URL_PATH')) {
     }
 
 }
+if (! function_exists('_ACTIVE_URL')) {
+
+    function _ACTIVE_URL($url)
+    {
+        $ret = pathinfo(url()->current())['dirname'] ;
+
+        if($url == $ret){
+            return 'active';
+        }else{
+            return "";
+        }
+
+    }
+
+}
+
 
 if(! function_exists('_IS_ACTIVE')){
 
@@ -166,7 +182,27 @@ if(! function_exists('_IS_ACTIVE')){
 
     }
 }
+if(! function_exists('_DATE_FORMAT')){
 
+    function _DATE_FORMAT($unixtime){
+        $today =  strtotime(date('Y-m-d',time()));
+
+        $diff = $unixtime-$today;
+
+        if($diff>0 and $diff<86400){
+
+            return "今天 ".date('H:i',$unixtime);
+
+        }elseif ($diff<0 and $diff> -86400) {
+
+            return "昨天 ".date('H:i',$unixtime);
+
+        }else{
+
+            return  date('Y-m-d H:i',$unixtime);
+        }
+    }
+}
 
 if (! function_exists('_IS_ACTIVE_PATH')) {
     /**

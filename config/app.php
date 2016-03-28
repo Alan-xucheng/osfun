@@ -120,6 +120,12 @@ return [
     | this array to grant expanded functionality to your applications.
     |
     */
+   /**
+    * 以下是自定义变量
+    */
+   'post_status'=>env('POST_STATUS','publish'),
+
+   'comment_paginate' =>env('COMMENT_PAGINATE',6),
 
     'providers' => [
 

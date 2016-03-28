@@ -7,26 +7,12 @@ use App\AlbumCover;
 use App\Album;
 use App\CommentList;
 use Auth;
+use App\Category;
 use App\UserLike;
 use App\Http\Controllers\Controller;
 
 class AcademyController extends Controller
 {
-    //
-    //
-   public function getIndex(){
-
-      $cover = AlbumCover::select('album_covers.type','album_covers.desc','album_covers.title','album_covers.img','album_covers.post_time','album_covers.praise_num','users.name','album_covers.id')
-          ->leftJoin('users','users.id','=','album_covers.user_id')
-          ->where('album_covers.medium','!=','article')
-          
-          ->get();
-   	  $data['covers'] = $cover;
-
-  
-   		return view('user.public.academy_search',$data);
-   }
-
 
    public function getDetail($id =null){
 
@@ -41,7 +27,7 @@ class AcademyController extends Controller
           }
           
         }
-        $cover = AlbumCover::select('album_covers.type','album_covers.desc','album_covers.title','album_covers.img','album_covers.post_time','album_covers.praise_num','users.name','album_covers.id','users.avatar')
+        $cover = AlbumCover::select('album_covers.media','album_covers.desc','album_covers.title','album_covers.img','album_covers.post_time','album_covers.praise_num','users.name','album_covers.id','users.avatar')
             ->leftJoin('users','users.id','=','album_covers.user_id')
           
             ->where('album_covers.id',$id)
@@ -65,7 +51,13 @@ class AcademyController extends Controller
       $data['album'] = $album;
       $data['comments'] = $comment;
 
+      if($cover->media == 'video'){
+        return view('user.public.page_video',$data);
+      }else{
+        return view('user.public.page_article',$data);
+      }
+
     
-   		return view('user.public.page_video',$data);
+   		
    }
 }

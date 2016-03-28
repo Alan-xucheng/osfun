@@ -36,14 +36,11 @@ var OrderForm = function () {
 	                {
 	                    required: true
 	                },
-	                interested:
+	                parent:
 	                {
-	                    required: true
-	                },
-	                budget:
-	                {
-	                    required: true
+	                	required:true
 	                }
+	             
 	            },
 	                                
 	            // Messages for form validation
@@ -53,23 +50,11 @@ var OrderForm = function () {
 	                {
 	                    required: '说点什么吧！'
 	                },
-	                email:
+	                parent:
 	                {
-	                    required: 'Please enter your email address',
-	                    email: 'Please enter a VALID email address'
-	                },
-	                desc:
-	                {
-	                    required: '此项不能为空'
-	                },
-	                interested:
-	                {
-	                    required: 'Please select interested service'
-	                },
-	                budget:
-	                {
-	                    required: 'Please select your budget'
+	                	required:'请选择分类'
 	                }
+	     
 	            },
 
 	            // Ajax form submition

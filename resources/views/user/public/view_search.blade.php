@@ -2,33 +2,38 @@
 
 @section('styles')
 <!-- CSS Page Style -->
-<link rel="stylesheet" href="assets/css/pages/page_search_inner.css">
+<!-- <link rel="stylesheet" href="assets/css/pages/page_search_inner.css"> -->
 
 @endsection
 
 @section('breadcrumbs')
 
-<div class="breadcrumbs" style="margin-bottom: 30px;padding-top:30px;">
+<div class="breadcrumbs" style="margin-bottom: 30px;padding-top:15px;">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 academy-list">
-                    <h1 class="" style="font-size:30px;margin-bottom: 30px;">网红圈</h1>
+                    <h1 class="" style="font-size:30px;margin-bottom: 30px;">圈子
+                        <span style="font-size:12px;color:#555;">展示个人价值</span> 
+                    </h1>
                     <ul class="list-unstyled list-inline">
-                        <li><a href="javascript:;">类别</a></li>
-                        <li class="{{Request::input('type')=='all'||Request::input('type')==''?'active':''}}"><a href="/view?type=all&&sort={{Request::input('sort')}}">全部</a></li>
-                        <li class="{{Request::input('type')=='personal'?'active':''}}"><a href="/view?type=personal&&sort={{Request::input('sort')}}">个人秀</a></li>
-                        <li class="{{Request::input('type')=='experience'?'active':''}}"><a href="/view?type=experience&&sort={{Request::input('sort')}}">经验分享</a></li>
+                        <li><a href="javascript:;">性别</a></li>
+                        <li class="{{$sex=='all_sex'||$sex==''?'active':''}}"><a href="/search/view/all_sex/{{$media}}/{{$sort}}">全部</a></li>
+                        <li class="{{$sex=='male'?'active':''}}"><a href="/search/view/male/{{$media}}/{{$sort}}">男</a></li>
+                        <li class="{{$sex=='female'?'active':''}}"><a href="/search/view/female/{{$media}}/{{$sort}}">女</a></li>
                     </ul>
                     <ul class="list-unstyled list-inline">
                         <li><a href="javascript:;">类型</a></li>
-                        <li class="active"><a href="#">图文</a></li>
+                        <li class="{{$media=='video'?'active':''}}"><a href="/search/view/{{$sex}}/video/{{$sort}}">视频</a></li>
+                        <li class="{{$media=='article'?'active':''}}"><a href="/search/view/{{$sex}}/article/{{$sort}}">文章</a></li>
+                        
+                       
                     </ul>
                     <ul class="list-unstyled list-inline">
                         <li><a href="javascript:;">排序</a></li>
-                        <li class="{{Request::input('sort')=='hot'||Request::input('sort')==''?'active':''}}"><a href="/view?type={{Request::input('type')}}&&sort=hot">热门喜欢</a></li>
-                        <li class="{{Request::input('sort')=='comment'?'active':''}}"><a href="/view?type={{Request::input('type')}}&&sort=comment">正在热议</a></li>
+                        <li class="{{$sort=='hot'||$media==''?'active':''}}"><a href="/search/view/{{$sex}}/{{$media}}/hot">热门喜欢</a></li>
+                        <li class="{{$sort=='comment'?'active':''}}"><a href="/search/view/{{$sex}}/{{$media}}/comment">正在热议</a></li>
+                        <li class="{{$sort=='new'?'active':''}}"><a href="/search/view/{{$sex}}/{{$media}}/new">最新发布</a></li>
                        
-                        <li class="{{Request::input('sort')=='new'?'active':''}}"><a href="/view?type={{Request::input('type')}}&&sort=new">最新发布</a></li>
                     </ul>
                 </div>
             </div>
@@ -39,30 +44,30 @@
 
 
 @section('content')
-<!--=== Search Block Version 2 ===-->
-
-
-    <!--=== Search Results ===-->
+ <!--=== Search Results ===-->
+ @if($media =='article')
     <div class="container content">
             <div class="row blog-page">
                 <!-- Left Sidebar -->
-                <div class="col-md-8 md-margin-bottom-40">
+                <div class="col-lg-8  col-md-9 md-margin-bottom-40">
                     <!--Blog Post-->
                     @foreach($covers as $cover)
-                    <div class="row blog blog-medium margin-bottom-15" style="background-color: #FCFCFC;">
-                        <div class="col-md-5">
-                            <img class="img-responsive img-bordered" src="{{$cover->img?$cover->img:'/assets/img/main/img22.jpg'}}" alt="">
+                    <div class="row blog margin-bottom-15">
+                        <div class="col-sm-3">
+                            <img class="img-responsive blog-img img-bordered" src="{{$cover->img?$cover->img:'/assets/img/main/img22.jpg'}}" alt="">
+                            
                         </div>
-                        <div class="col-md-7">
-                            <h2><a href="/view/detail/{{$cover->id}}">{{$cover->title}}</a></h2>
-                            <ul class="list-unstyled list-inline blog-info">
-                                <li><i class="fa fa-user"></i> <a href="#">{{$cover->name}}</a></li>
-                                <li><i class="fa fa-calendar"></i>&nbsp;{{date('Y-m-d',$cover->post_time)}}</li>
-                                
-                              
-                            </ul>
-                            <div style="height:60px;">{{$cover->desc}}</div>
-                            <p><a class="btn-u btn-u-sm" href="blog_item.html">详情 <i class="fa fa-angle-double-right margin-left-5"></i></a></p>
+                        <div class="col-sm-9">
+                            <h4><a href="/view/detail/{{$cover->id}}">{{$cover->title}}</a></h4>
+                            <div class="user-info"><i class="fa fa-mars"></i> <a href="/profile/article/{{$cover->uid}}">{{$cover->nickname}}</a></div>
+                            <p>{{$cover->desc}}</p>
+                            <div>
+
+                                <span class="article-box"><i class="fa fa-thumbs-o-up"></i>&nbsp;222</span>
+
+                                <span class="article-box"><i class="fa fa-comment "></i>&nbsp;111</span>
+
+                            </div>
                         </div>
                     </div>
                     <!--End Blog Post-->
@@ -94,7 +99,7 @@
                 <!-- End Left Sidebar -->
 
                 <!-- Right Sidebar -->
-                <div class="col-md-4">
+                <div class="col-lg-4 col-md-3">
                 
 
                     <!-- Posts -->
@@ -128,6 +133,45 @@
             </div><!--/row-->
         </div>
     <!--=== End Search Results ===-->
+    @else
+    <!--=== Search Results ===-->
+    <div class="container s-results margin-bottom-50" >
+        <div class="row">
+    
+
+            <div class="col-md-12">
+                <div class="row">
+                    @foreach($covers as $cover)
+                       <div class="col-sm-4 col-md-3 ">
+                           <div class="thumbnails m-video-box">
+                               <a class="fancybox" data-rel="fancybox-button" title="Project #1">
+                                   <img class="img-responsive" src="{{$cover->img?$cover->img:'assets/img/main/img18.jpg'}}" alt="">
+                               </a>
+                               <div class="caption">
+                                   <h5 style="padding-bottom: 0px;"><a class="hover-effect" href="/view/detail/{{$cover->id}}">{{$cover->title}}</a></h5>
+                                   <p ><a href="/profile/article/{{$cover->uid}}">{{$cover->nickname}}</a><span class="user-v"><i class="fa fa-vimeo"></i></span></p>
+                               </div>
+                               <div class="th-foote">
+                                   <div class="row">
+                                       <div class="col-xs-4"><i class="fa fa-caret-square-o-right"></i>&nbsp;22</div>
+                                       <div class="col-xs-4 text-center"><i class="fa fa-thumbs-o-up"></i>&nbsp;22</div>
+                                       <div class="col-xs-4 text-right"><i class="fa fa-comment "></i>&nbsp;22</div>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                    @endforeach
+                 
+                </div> 
+             
+            </div><!--/col-md-10-->
+        </div>
+    </div><!--/container-->
+    <!--=== End Search Results ===-->
+
+
+
+    @endif
 
 
 @endsection
