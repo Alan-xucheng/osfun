@@ -234,6 +234,73 @@ var ProfileSocial = function(){
                $('.location-line').css('height',"55px");
             })
         },
+        authenticationForm:function(){
+            $("#authenticationForm").validate({
+                // Rules for form validation
+                rules:
+                {         
+                  
+                    truename:
+                    {
+                        required:true
+                    },
+                    front_data:
+                    {
+                        required:true
+                    },
+                    back_data:
+                    {
+                        required:true
+                    }
+                },
+                                    
+                // Messages for form validation
+                messages:
+                {
+                  
+                  
+                     truename:
+                     {
+                         required:"请填写"
+                     },
+                     front_data:
+                     {
+                        required:'请上传图片'
+                     },
+                     back_data:
+                     {
+                        required:'请上传图片'
+                     }
+                },
+
+                // Ajax form submition
+                submitHandler: function(form)
+                { 
+                    $.ajax(
+                    {
+                        type:'post',
+                        data:$("#authenticationForm").serialize(),
+                        url:'/user/api/save-certification',
+                        success:function(res){
+                            console.log(res);
+                            //window.location = '/user/home/profile-album';
+                        },
+                        error:function(){
+
+                        }
+                     
+                    });
+                    return false;
+                },
+
+                
+                // Do not change code below
+                errorPlacement: function(error, element)
+                {
+                    error.insertAfter(element.parent());
+                }
+            });
+        },
         certificantForm:function(){
             $("#certificationForm").validate({
                 // Rules for form validation
@@ -452,6 +519,53 @@ var ProfileSocial = function(){
             uploader.init();
 
             },
+        createGroup:function(){
+            $('#logoBtn').click(function(){
+                var  str =' <form action="#"class="sky-form" id="logoImg" style="position:relative;border:none;"><div class="face-editor"><fieldset>';
+                     str+=  '<section><label class="input input-file"><div class="button"><input type="file" id="file" class="cropit-image-input">选择图片</div></label></section>';
+                     str+=  '<section class="text-center"><div class="cropit-preview"></div></section>';
+                
+                     str+='<div class="slider-wrapper"><span class="rotate-btns"><i style="cursor:pointer" class="fa fa-rotate-left rotate-ccw-btn"></i><i style="cursor:pointer" class="fa fa-rotate-right rotate-cw-btn"></i></span><i class="fa fa-file-image-o"></i><input type="range" class="cropit-image-zoom-input" min="0" max="1" step="0.01"><i style="font-size:20px;" class="fa fa-file-image-o"></i></div>';
+                     
+                     str+=  '</fieldset></div></form>';
+                 $.confirm({
+                        title: '选择封面图片',
+                        content:str,
+                        confirmButton: '确定',
+                        cancelButton:'取消',
+                        confirmButtonClass: 'btn-danger',
+                        columnClass:'col-group col-md-4 col-md-offset-4',
+                        animation: 'scale',
+                        animationClose: 'top',             
+                        opacity: 0.5,
+                        onOpen:function(){
+                             $('.face-editor').cropit();
+                             $('.rotate-ccw-btn').click(function(){
+                              $('.face-editor').cropit('rotateCW');
+                             })  
+                              $('.rotate-cw-btn').click(function(){
+                              $('.face-editor').cropit('rotateCCW');
+                             }) 
+                        },
+                        confirm:function(){
+                            
+                             var imageData = $('.face-editor').cropit('export');
+                             $('.hidden-image-data').val(imageData);
+
+                             var dom = '<img src="'+imageData+'"/>';
+
+                             $('.video-preview').html(dom);
+                        
+
+                        }
+
+                    })
+            })
+        },      
+        authenticationUpload:function(){
+            ProfileSocial.imgUpload('frontuploader');
+            ProfileSocial.imgUpload('backuploader');
+        },   
         certificantUpload:function(){
             $('#cate').cxSelect({ 
               url: '/api/service-category',               // 如果服务器不支持 .json 类型文件，请将文件改为 .js 文件 

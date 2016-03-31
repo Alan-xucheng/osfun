@@ -292,7 +292,7 @@ class HomeController extends Controller
 
       }else{
 
-        $cover = AlbumCover::select('album_covers.media','album_covers.desc','album_covers.title','album_covers.img','album_covers.post_time','album_covers.praise_num','users.name','album_covers.id','user_extras.sex','user_extras.nickname','categories.slug','categories.id','categories.name')
+        $cover = AlbumCover::select('album_covers.media','album_covers.desc','album_covers.title','album_covers.img','album_covers.post_time','album_covers.praise_num','users.name','album_covers.id','user_extras.sex','user_extras.nickname','categories.slug','categories.name')
 
                 ->leftJoin('users','users.id','=','album_covers.user_id')
 
@@ -458,6 +458,11 @@ class HomeController extends Controller
       // dd($data);
  
         return view('user.public.service_search',$data);
+   }
+
+   public function getSearchGroup(){
+
+      return view('user.public.group_search');
    }
 
 

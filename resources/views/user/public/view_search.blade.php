@@ -142,7 +142,7 @@
             <div class="col-md-12">
                 <div class="row">
                     @foreach($covers as $cover)
-                       <div class="col-sm-4 col-md-3 ">
+                       <div class="col-sm-3 ">
                            <div class="thumbnails m-video-box">
                                <a class="fancybox" data-rel="fancybox-button" title="Project #1">
                                    <img class="img-responsive" src="{{$cover->img?$cover->img:'assets/img/main/img18.jpg'}}" alt="">

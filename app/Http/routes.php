@@ -72,6 +72,7 @@ Route::group(['middleware' => 'web'], function() {
     Route::get('/search/cooperation/{category?}','Publish\HomeController@getSearchCooperation');
     Route::get('/search/academy/{category?}/{child_category?}/{media?}/{sort?}','Publish\HomeController@getSearchAcademy');
     Route::get('/search/service/{category?}/{child_category?}/{location?}/{sort?}','Publish\HomeController@getSearchService');
+    Route::get('/search/group','Publish\HomeController@getSearchGroup');
     Route::auth();
     Route::controllers([
         'admin/public' => 'Admin\PublicController',
@@ -81,6 +82,7 @@ Route::group(['middleware' => 'web'], function() {
         'academy' => 'Publish\AcademyController',
         'view' => 'Publish\ViewController',
         'profile' => 'Publish\ProfileController',
+        'group' =>'Publish\GroupController',
         'home/service' => 'Publish\ServiceController',
     ]);
 });

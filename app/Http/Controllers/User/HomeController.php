@@ -214,6 +214,26 @@ class HomeController extends Controller
         
     }
 
+    public function getCreateGroup(){
+
+        $user_id = Auth::guard('user')->user()->id;
+
+        $cert = Certification::where('user_id',$user_id)->where('status','passed')->first();
+
+        $data['cert_status'] = $cert;
+
+
+        return view('user.public.create_group',$data);
+    }
+
+    public function getAuthentication(){
+
+
+        return view('user.public.authentication');
+    }
+
+
+
 
 
 

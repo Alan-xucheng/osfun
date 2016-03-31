@@ -686,47 +686,65 @@ class ApiController extends Controller
 
         $cert = Certification::firstOrCreate(['user_id'=>$user_id]);
 
-        $parent = Request::input('parent');
+        $type = Request::input('type');
 
-        $child = Request::input('child');
+        if($type == 'service'){
 
-        $pid =  Category::where('name',$parent)->first()->id;
+            $parent = Request::input('parent');
 
-        if(!empty($child)){
+            $child = Request::input('child');
 
-            $cid = Category::where('name',$child)->where('parent',$pid)->first()->id;
+            $pid =  Category::where('name',$parent)->first()->id;
 
-            $cert->category = $cid;
-        }else{
-            $cert->category = $pid;
+            if(!empty($child)){
+
+                $cid = Category::where('name',$child)->where('parent',$pid)->first()->id;
+
+                $cert->category = $cid;
+            }else{
+                $cert->category = $pid;
+            }
+            $province = Request::input('province');
+
+            $city = Request::input('city');
+
+            $country = Request::input('country');
+
+            $location_id = Tool::get_location_number($province);
+            
+            $cert->service_desc = Request::input('service_desc');
+
+            $cert->province = $province;
+
+            $cert->city = $city;
+
+            $cert->country = empty($country)? '':$country;
+
+            $cert->size = Request::input('size');
+
+            $cert->true_name = Request::input('truename');
+
+            $cert->service_type = Request::input('service_type');
+
+            $cert->location_id = $location_id;
+
+            $cert->status ='apply';
+
+            $cert->type = $type;
+
+            $cert->save();
+
+        }elseif ($type =='personal') {
+            
+            $cert->true_name = Request::input('truename');
+
+            $cert->type = $type;
+
+            $cert->status ='apply';
+
+            $cert->save();
+
         }
-        $province = Request::input('province');
-
-        $city = Request::input('city');
-
-        $country = Request::input('country');
-
-        $location_id = Tool::get_location_number($province);
-        
-        $cert->service_desc = Request::input('service_desc');
-
-        $cert->province = $province;
-
-        $cert->city = $city;
-
-        $cert->country = empty($country)? '':$country;
-
-        $cert->size = Request::input('size');
-
-        $cert->true_name = Request::input('truename');
-
-        $cert->service_type = Request::input('service_type');
-
-        $cert->location_id = $location_id;
-
-        $cert->status ='apply';
-
-        $cert->save();
 
         return Tool::json_return(0,'success');
 
@@ -795,6 +813,10 @@ class ApiController extends Controller
         Tool::json_return(0,'success');
 
 
+    }
+
+    public function postSaveAuthentication(){
+        return Request::all();
     }
 
 

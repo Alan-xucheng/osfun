@@ -105,6 +105,12 @@
                             <!-- Fashion -->
                            <li class="{{_IS_ACTIVE(url('/search/view'))}}">
                                <a href="{{url('/search/view')}}" >
+                                   show
+                               </a>
+                             
+                           </li>
+                           <li class="{{_IS_ACTIVE(url('/search/group'))}}">
+                               <a href="{{url('/search/group')}}" >
                                    圈子
                                </a>
                              

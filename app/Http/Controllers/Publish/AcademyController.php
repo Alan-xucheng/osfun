@@ -15,7 +15,7 @@ class AcademyController extends Controller
 {
 
    public function getDetail($id =null){
-
+    
       if(empty($id)){
         abort(404);
       }   

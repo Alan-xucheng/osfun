@@ -15,6 +15,7 @@ class CreateCertificationsTable extends Migration
         Schema::create('certifications', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
+            $table->string('type');
             $table->integer('location_id');
             $table->integer('category');
             $table->text('service_desc');

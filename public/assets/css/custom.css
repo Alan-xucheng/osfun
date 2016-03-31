@@ -3,6 +3,9 @@ a,a:hover{
   text-decoration: none;
   color:#999;
 }
+.my-dotted{
+  margin:15px 0;
+}
 .face-img{
 
 	box-shadow: 0px 0px 10px #fff;
@@ -555,7 +558,58 @@ cursor: pointer;
   font-weight: 500;
   color: #4bf;
 }
+.bg-color-group{
+  background-color: #F0F0F0;
+}
+.group-body{
+  padding:20px ;
+  background: #fff;
+  margin-top: 30px;
+}
+.type-ul li.active {
+    border-bottom: 2px solid #4765a0;
+    color: #4765a0;
+    z-index: 100;
+}
+.type-ul li {
+    font-size: 14px;
+    margin-right: 20px;
+    padding-top: 10px;
+    padding-bottom: 9px;
+}
+.group-article li{
 
+  color:#9f9f9f;
+  font-size: 12px;
+
+}
+#logoImg .cropit-preview {
+    background-color: #f8f8f8;
+    background-size: cover;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-top: 7px;
+    left: 50%;
+    margin-left: -147px;
+    width: 200px;
+    height: 200px;
+    text-align: center;
+}
+.col-group .content{
+  padding-top: 0;
+
+}
+#logoImg .input-file .button {
+    height: 32px;
+    top: 15px;
+    right: -26px;
+}
+#logoImg .slider-wrapper{
+    position: absolute;
+    left: 39%;
+    bottom: -20px;
+    margin-left: -109px;
+}
 
 
 
