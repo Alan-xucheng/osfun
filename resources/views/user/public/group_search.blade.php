@@ -33,22 +33,24 @@
         	<div class="headline"><h2>全部圈子</h2></div>
 
             <!-- Clients Block-->
+            @foreach($groups as $group)
             <div class="row clients-page">
                 <div class="col-md-2">
-                    <img src="/assets/img/clients2/baderbrau.png" class="img-responsive hover-effect" alt="" />
+                    <img src="{{$group->image?$group->image:'/assets/img/clients2/baderbrau.png'}}" class="img-responsive hover-effect" alt="" />
                 </div>
                 <div class="col-md-10">
-                    <a href="/group"><h3>Cisco Systems, Inc</h3></a>
+                    <a href="/group/home/{{$group->id}}"><h3>{{$group->name}}</h3></a>
                     <ul class="list-inline">
                         <li><i class="fa fa-paper-plane-o color-green"></i> 帖子</li>
                         <li><i class="fa fa-video-camera color-green"></i> <a class="linked" href="#">视频</a></li>
                         <li><i class="fa fa-user color-green"></i>&nbsp;成员</li>
                     </ul>
-                    <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati</p>
+                    <p>{{$group->desc}}</p>
                
                 </div>
             </div>
             <hr>
+            @endforeach
             <!-- End Clients Block-->
 
                  <!-- End Clients Block-->

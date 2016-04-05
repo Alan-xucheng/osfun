@@ -39,7 +39,8 @@ class HomeController extends Controller
 
     	return view('user.public.profile');
     }
-    public function getCreateAlbum($type='personal'){
+    public function getCreateAlbum($id=0,$type='personal'){
+        
 
         $type = Request::input('type');
 
@@ -48,6 +49,8 @@ class HomeController extends Controller
         $cover = AlbumCover::firstOrCreate(['user_id'=>$user_id,'status'=>'draft','type'=>$type]);
 
         $album = Album::firstOrCreate(['cover_id'=>$cover->id]);
+
+        $data['group_id'] = $id;
 
         $data['cover'] = $cover;
 
@@ -178,9 +181,11 @@ class HomeController extends Controller
 
 
     }
-    public function getCreateVideo(){
+    public function getCreateVideo($id){
 
-        return view('user.public.create_video');
+        $data['group_id'] = $id;
+
+        return view('user.public.create_video',$data);
     }
 
 

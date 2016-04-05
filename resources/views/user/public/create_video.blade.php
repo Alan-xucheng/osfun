@@ -1,5 +1,8 @@
 @extends('user.layout.layout')
 
+@section('meta')
+<meta name="group_id" content="{{$group_id}}">
+@endsection
 @section('styles')
 <!-- bootstrap wysihtml5 - text editor -->
 <link rel="stylesheet" href="/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
@@ -125,7 +128,7 @@
           
             </fieldset>
             <footer>
-               
+                <input type="hidden" name="group_id" value="{{$group_id}}"/>
                 <button type="submit" class="btn-u">发布作品</button>
             </footer>  
             

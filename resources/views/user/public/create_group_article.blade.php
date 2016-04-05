@@ -1,11 +1,9 @@
 @extends('user.layout.layout')
 
-
 @section('meta')
+
 <meta name="group_id" content="{{$group_id}}">
 @endsection
-
-
 @section('styles')
 
 <link rel="stylesheet" href="/assets/css/pages/profile.css">
@@ -95,16 +93,25 @@
                 <div class="">
                   
                     <div class="editable" data-placeholder="说点什么吧！"  data-filed-id="content">
-                    <h3>本页可以直接编辑！</h3>
+                   
 
-              
+                   
+                    <p>帖子内容……（可直接在此页编辑）。</p>
+
+
+          
+
+
+
+
+                
                     
                     
 
                     </div>
                     <div class="ladda-btn pull-right">
                         <p>
-                            <button class="btn-u  btn-u-blue ladda-button" id="saveAlbum" cover="{{$cover->id}}" data-style="contract-overlay"><span class="ladda-label">保存</span><span class="ladda-spinner"></span></button>
+                            <button class="btn-u  btn-u-blue ladda-button" id="saveArticle"  data-style="contract-overlay"><span class="ladda-label">保存</span><span class="ladda-spinner"></span></button>
                         </p>
                     </div>
 
@@ -155,9 +162,9 @@
 
 @section('jquery')
 
-  App.initCounter();
-  App.initScrollBar();
-  ProfileSocial.createAlbum();
+
+
+  ProfileSocial.createGroupArticle();
   OrderForm.initOrderForm();
 
 

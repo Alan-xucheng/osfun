@@ -1,6 +1,172 @@
 var ProfileSocial = function(){
 
 	return {
+        createGroupArticle(){
+            ProfileSocial.Change();
+               
+            Ladda.bind( '#saveAlbum', {
+                callback:function(ref){
+                   var allContents = editor.serialize();
+                   var data = allContents["element-0"].value;
+                   var cover = $('#saveAlbum').attr('cover');
+            
+                  
+                   $.ajax({
+                        type:'post',
+                        data:{'content':data,'cover_id':cover},
+                        url:'/user/api/save-album',
+                        success:function(res){
+                            console.log(res);
+
+                            if(res.return_code == 0){
+                                var img_path = res.return_message.base64;
+                            var  str =  '<form action="#"class="sky-form" id="coverForm" style="position:relative;border:none;"><div class="album-cover"><fieldset>';
+                                 str+=  '<section><label class="label">文章标题</label><label class="input">';
+                                 str+=  ' <i class="icon-append fa fa-tag"></i>';
+                                 str+=  ' <input type="text" id="title" name="title" value="'+res.return_message.title+'"/></label><p class="text-danger" style="display:none">请添加标题！</p></section>';
+                                 str+=  '<section><label class="input input-file"><div class="button"><input type="file" id="file" class="cropit-image-input">选择图片</div></label></section>';
+                                 str+=  '<section class="text-center"><div class="cropit-preview"></div><p class="text-danger" style="display:none">图片不能为空！</p></section>';
+                                 str+=   '<input type="hidden" name="cover" value="'+cover+'"/>';   
+                                 str+='<div class="slider-wrapper"><span class="rotate-btns"><i style="cursor:pointer" class="fa fa-rotate-left rotate-ccw-btn"></i><i style="cursor:pointer" class="fa fa-rotate-right rotate-cw-btn"></i></span><i class="fa fa-file-image-o"></i><input type="range" class="cropit-image-zoom-input" min="0" max="1" step="0.01"><i style="font-size:20px;" class="fa fa-file-image-o"></i></div>';
+                                 str+=  '<input type="hidden" name="image-data" id="img" class="hidden-image-data" />';
+                                 str+=  '</fieldset></div></form>';
+                                ref.stop();
+                            var jc = $.confirm({
+                                    title: '添加封面图片',
+                                    content: str,
+                                    confirmButton: '确定',
+                                    cancelButton:'取消',
+                                    confirmButtonClass: 'btn-danger',
+                                    columnClass:'col-album col-md-offset-3',
+                                    icon: 'fa fa-question-circle',
+                                    animation: 'scale',
+                                    animationClose: 'top',
+                                    
+                                    opacity: 0.5,
+                                    onOpen:function(){
+
+                                        ProfileSocial.AlbumCropit();
+                                         $('.rotate-ccw-btn').click(function(){
+                                          $('.album-cover').cropit('rotateCW');
+                                         })  
+                                          $('.rotate-cw-btn').click(function(){
+                                          $('.album-cover').cropit('rotateCCW');
+                                         }) 
+                                      
+                                        $('.cropit-preview-image').attr('src',img_path);
+
+                                    },
+                                    confirm:function(){
+                                           var imageData = $('.album-cover').cropit('export');
+
+                                            $('.hidden-image-data').val(imageData);
+                                           var input = this.$b.find('input#title');
+                                           var img = this.$b.find('input#img')
+                                            var errorText = this.$b.find('.text-danger');
+                                            if (input.val() == ''||img.val()=='') {
+                                                 errorText.show();
+                                                return false;
+                                            }else{
+                                                // Print HTTP request params
+                                                var formValue = $("#coverForm").serialize();
+
+
+                                                $.ajax({
+                                                  type:'post',
+                                                  data:formValue,
+                                                  url:'/user/api/api-cover',
+                                                  success:function(res){
+                                                      jc.close();
+                                                      location.href="/user/home/profile-album";
+                                                      // location.reload();
+                                                  },
+                                                  error:function(res){
+                                                      console.log(res);
+                                                  }
+
+
+                                                })
+                                            }
+                                 
+                                         
+                                    }
+
+                                })
+                            }
+                        },
+                        error:function(){
+
+                        }
+                   })
+                   
+
+                }
+
+            } );
+
+
+
+            var editor = new MediumEditor('.editable', {
+                buttonLabels: 'fontawesome'
+            });
+            $('#saveBtn').click(function(){
+                var str = editor.serialize();;
+                console.log(str);
+            })
+            $('.editable').mediumInsert({
+                editor: editor,
+                addons: {
+                    images: {
+                        styles: {
+                            slideshow: {
+                                label: '<span class="fa fa-play"></span>',
+                                // added: function ($el) {
+                                //     $el
+                                //         .data('cycle-center-vert', true)
+                                //         .cycle({
+                                //             slides: 'figure'
+                                //         });
+                                // },
+                                // removed: function ($el) {
+                                //     //$el.cycle('destroy');
+                                // }
+                            }
+                        },
+                        actions: false
+                    }
+                }
+            });
+        },
+
+        groupFunc:function(){
+            var group_id = $('meta[name="group_id"]').attr('content');
+            $('#createArticle').click(function(){
+                location.href = "/user/home/create-album/"+group_id+"?type=group";
+            });
+             $('#createVideo').click(function(){
+                location.href = "/user/home/create-video/"+group_id+"?type=group";
+            });
+
+            $('#groupBtn').click(function(){
+
+                $.ajax({
+                    type:'POST',
+                    data:{"group_id":group_id},
+                    url:'/user/api/group-user',
+                    success:function(res){
+
+                        if(res.return_code == 0){
+                            location.reload();
+                        }
+                    },
+                    error:function(res){
+
+                        console.log(res);
+                    }
+
+                })
+            })
+        },
         editProfile:function(){
             $('.edit-sex').on('shown.bs.popover', function () {
                   ProfileSocial.setBirth();
@@ -519,12 +685,101 @@ var ProfileSocial = function(){
             uploader.init();
 
             },
+        groupForm:function(){
+            $("#groupForm").validate({
+                // Rules for form validation
+                rules:
+                {
+               
+                    name:
+                    {
+                        required:true
+                    },
+                    parent:
+                    {
+                        required:true
+                    },
+                    child:
+                    {
+                        required:true
+                    },
+                    group_desc:
+                    {
+                        required:true
+                    },
+                    image:
+                    {
+                        required:true
+                    }
+                },
+                                    
+                // Messages for form validation
+                messages:
+                {
+                  
+                      name:
+                      {
+                          required:'请填写'
+                      },
+                      parent:
+                      {
+                         required:'请填写'
+                      },
+                      child:
+                      {
+                        required:'请填写'
+                      },
+                      group_desc:
+                      {
+                          required:'请填写'
+                      },
+                      image:
+                      {
+                           required:'请上传图片' 
+                      }
+                },
+
+                // Ajax form submition
+                submitHandler: function(form)
+                { 
+                    $.ajax(
+                    {
+                        type:'post',
+                        data:$("#groupForm").serialize(),
+                        url:'/user/api/create-group',
+                        success:function(res){
+                            console.log(res);
+                           
+                            // window.location = '/user/home/profile-album';
+                        },
+                        error:function(){
+
+                        }
+                     
+                    });
+                    return false;
+                },
+
+                
+                // Do not change code below
+                errorPlacement: function(error, element)
+                {
+                    error.insertAfter(element.parent());
+                }
+            });
+        },
         createGroup:function(){
+              
+            $('#cate').cxSelect({ 
+              url: '/api/service-category',               // 如果服务器不支持 .json 类型文件，请将文件改为 .js 文件 
+              selects:  ['parent', 'child'],
+              jsonName: 'name',
+            });  
             $('#logoBtn').click(function(){
-                var  str =' <form action="#"class="sky-form" id="logoImg" style="position:relative;border:none;"><div class="face-editor"><fieldset>';
+                var  str =' <form action="#"class="sky-form" id="logoImg" style="position:relative;border:none;"><div class="logoImg"><fieldset>';
                      str+=  '<section><label class="input input-file"><div class="button"><input type="file" id="file" class="cropit-image-input">选择图片</div></label></section>';
                      str+=  '<section class="text-center"><div class="cropit-preview"></div></section>';
-                
+                     str+='<input type="hidden" name="image">';   
                      str+='<div class="slider-wrapper"><span class="rotate-btns"><i style="cursor:pointer" class="fa fa-rotate-left rotate-ccw-btn"></i><i style="cursor:pointer" class="fa fa-rotate-right rotate-cw-btn"></i></span><i class="fa fa-file-image-o"></i><input type="range" class="cropit-image-zoom-input" min="0" max="1" step="0.01"><i style="font-size:20px;" class="fa fa-file-image-o"></i></div>';
                      
                      str+=  '</fieldset></div></form>';
@@ -539,22 +794,23 @@ var ProfileSocial = function(){
                         animationClose: 'top',             
                         opacity: 0.5,
                         onOpen:function(){
-                             $('.face-editor').cropit();
+                             $('.logoImg').cropit();
                              $('.rotate-ccw-btn').click(function(){
-                              $('.face-editor').cropit('rotateCW');
+                              $('.logoImg').cropit('rotateCW');
                              })  
                               $('.rotate-cw-btn').click(function(){
-                              $('.face-editor').cropit('rotateCCW');
+                              $('.logoImg').cropit('rotateCCW');
                              }) 
                         },
                         confirm:function(){
                             
-                             var imageData = $('.face-editor').cropit('export');
-                             $('.hidden-image-data').val(imageData);
+                             var imageData = $('.logoImg').cropit('export');
+                             $('input[name="image"]').val(imageData);
 
-                             var dom = '<img src="'+imageData+'"/>';
 
-                             $('.video-preview').html(dom);
+                        
+                             $('#logoBtn').attr('src',imageData);   
+                             
                         
 
                         }
@@ -1737,11 +1993,12 @@ var ProfileSocial = function(){
                    var allContents = editor.serialize();
                    var data = allContents["element-0"].value;
                    var cover = $('#saveAlbum').attr('cover');
+                   var group_id = $('meta[name="group_id"]').attr('content');
          
                   
                    $.ajax({
                         type:'post',
-                        data:{'content':data,'cover_id':cover},
+                        data:{'content':data,'cover_id':cover,'group_id':group_id},
                         url:'/user/api/save-album',
                         success:function(res){
                             console.log(res);
@@ -1760,7 +2017,7 @@ var ProfileSocial = function(){
                                  str+=  '</fieldset></div></form>';
                                 ref.stop();
                             var jc = $.confirm({
-                                    title: '添加封面图片',
+                                    title: '创建封面',
                                     content: str,
                                     confirmButton: '确定',
                                     cancelButton:'取消',
@@ -1805,7 +2062,7 @@ var ProfileSocial = function(){
                                                   url:'/user/api/api-cover',
                                                   success:function(res){
                                                       jc.close();
-                                                      location.href="/user/home/profile-album";
+                                                      location.href="/group/home/"+group_id;
                                                       // location.reload();
                                                   },
                                                   error:function(res){

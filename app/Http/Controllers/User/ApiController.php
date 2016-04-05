@@ -22,6 +22,8 @@ use App\AlbumCover;
 use App\UserLike;
 use App\CommentList;
 use App\Certification;
+use App\Group;
+use App\GroupUserRelation;
 class ApiController extends Controller
 {
     //
@@ -187,11 +189,37 @@ class ApiController extends Controller
 
 
     }
+    public function _verify_group($user_id,$group_id){
+
+        $relation = GroupUserRelation::where('user_id',$user_id)->where('group_id',$group_id)->first();
+
+        if(empty($relation)){
+
+            return false;
+        }else{
+
+            return true;
+        }
+
+
+    }
     public function postSaveAlbum(){
 
         $user_id = Auth::guard('user')->user()->id;
 
         $content = Request::input('content');
+
+        $group_id = Request::input('group_id');
+
+        if(!empty($group_id)){
+
+            $result = $this->_verify_group($user_id,$group_id);
+
+            if(!$result){
+
+                return Tool::json_return('-1','no permission');
+            }
+        }
 
         $cover_id = Request::input('cover_id');
 
@@ -208,6 +236,8 @@ class ApiController extends Controller
         $cover->desc = strip_tags(mb_substr($content,0,80));
 
         $cover->post_time = time();
+
+        $cover->group_id = $group_id;
 
         $cover->media = 'article';
 
@@ -617,6 +647,8 @@ class ApiController extends Controller
 
                 $cover->img = $url;
 
+                $cover->group_id = Request::input('group_id');
+
                 $cover->post_time = time();
 
                 $cover->desc = $desc;
@@ -817,6 +849,62 @@ class ApiController extends Controller
 
     public function postSaveAuthentication(){
         return Request::all();
+    }
+
+    public function postCreateGroup(){
+
+        $user_id = Auth::guard('user')->user()->id;
+    
+        $encoded = Request::input('image');
+
+        $img = $this->img_base64($encoded);
+
+        $parent = Request::input('parent');
+
+        $child = Request::input('child');
+
+        $category = Tool::_deal_category('service',$parent,$child);
+
+        $group_desc = Request::input('group_desc');
+
+        $name = Request::input('name');
+
+        $group = new Group();
+
+        $group->user_id = $user_id;
+
+        $group->name = $name;
+
+        $group->category = $category;
+
+        $group->desc = $group_desc;
+
+        $group->image = $img;
+
+        $group->save();
+
+        return Tool::json_return(0,'success');
+    }
+
+    public function postGroupUser(){
+
+        $user_id = Auth::guard('user')->user()->id;
+
+        $group_id = Request::input('group_id');
+
+        $relation = GroupUserRelation::firstOrCreate(["user_id"=>$user_id,"group_id"=>$group_id]);
+
+        if($relation->status == 'join'){
+
+            $relation->status = 'out';
+        }else{
+
+            $relation->status = 'join';
+        }
+
+        $relation->save();
+
+        return Tool::json_return(0,'success');
     }
 
 

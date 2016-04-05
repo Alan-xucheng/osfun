@@ -20,6 +20,7 @@ use App\CommentList;
 use App\Category;
 use App\China;
 use App\Certification;
+use App\Group;
 
 class HomeController extends Controller
 {
@@ -89,7 +90,7 @@ class HomeController extends Controller
 
                         ->where('album_covers.media','=',$media)
 
-                        ->where('album_covers.type','=','personal')
+                       
 
                         ->get();
 
@@ -140,7 +141,6 @@ class HomeController extends Controller
 
                 $data['covers'] = $cover;
 
-               
                 
                 return view('user.public.view_search',$data);
     }
@@ -449,7 +449,7 @@ class HomeController extends Controller
 
         foreach ($people as $key => $value) {
           
-            $people[$key]["album"] = AlbumCover::where('user_id',$value->user_id)->take(3)->get();
+            $people[$key]["album"] = AlbumCover::where('user_id',$value->user_id)->where('status','<>','draft')->take(3)->get();
         }
      
       
@@ -462,7 +462,11 @@ class HomeController extends Controller
 
    public function getSearchGroup(){
 
-      return view('user.public.group_search');
+      $group = Group::all();
+
+      $data["groups"] = $group;
+
+      return view('user.public.group_search',$data);
    }
 
 

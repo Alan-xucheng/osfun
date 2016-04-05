@@ -69,6 +69,23 @@ class CategoryTableSeeder extends Seeder{
   public function run(){
 
       DB::table('categories')->delete();
+      $group = \App\Category::create(['slug'=>'group','name'=>'圈子分类']);
+         $Category = \App\Category::create(['slug'=>'Guildrecruitment','name'=>'公会招募','parent'=>$group->id]); 
+         $Category = \App\Category::create(['slug'=>'game','name'=>'游戏','parent'=>$group->id]);
+         $Category = \App\Category::create(['slug'=>'star','name'=>'明星','parent'=>$group->id]);
+         $Category = \App\Category::create(['slug'=>'hobby','name'=>'爱好','parent'=>$group->id]);
+         $Category = \App\Category::create(['slug'=>'acg','name'=>'动漫','parent'=>$group->id]);
+         $Category = \App\Category::create(['slug'=>'location','name'=>'地区','parent'=>$group->id]);
+         $Category = \App\Category::create(['slug'=>'sports','name'=>'体育','parent'=>$group->id]);
+         $Category = \App\Category::create(['slug'=>'Bodybuilding','name'=>'运动健身','parent'=>$group->id]);
+         $Category = \App\Category::create(['slug'=>'beauty','name'=>'美女','parent'=>$group->id]);
+         $Category = \App\Category::create(['slug'=>'constellation','name'=>'星座','parent'=>$group->id]);
+         $Category = \App\Category::create(['slug'=>'travel','name'=>'旅行','parent'=>$group->id]);
+         $Category = \App\Category::create(['slug'=>'pet','name'=>'宠物','parent'=>$group->id]);
+         $Category = \App\Category::create(['slug'=>'diet','name'=>'饮食','parent'=>$group->id]);
+         $Category = \App\Category::create(['slug'=>'web','name'=>'互联网','parent'=>$group->id]);
+         $Category = \App\Category::create(['slug'=>'gossip','name'=>'闲聊','parent'=>$group->id]);
+        
 
       $academy = \App\Category::create(['slug'=>'academy','name'=>'学院分类']);
 

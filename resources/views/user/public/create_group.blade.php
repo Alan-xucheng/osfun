@@ -1,5 +1,6 @@
 @extends('user.layout.layout')
 @section('styles')
+
 <style>
    .ball-scale-multiple > div {
       background: #5bc0de;
@@ -40,7 +41,7 @@
 		                    	<div class="row">
 		                    		<div id="cate">
 					                    <section class="col col-6">
-					                        <label class="label">选择圈子类目</label>
+					                        <label class="label">圈子分类</label>
 					                        <label class="select">
 		                                      <select class="parent" name="parent" >
 		                                      		
@@ -81,7 +82,7 @@
 	   											
 	   												<img id='logoBtn' src="/assets/img/upload-logo.png" width="200px" class="img-responsive text-center bordered">
 
-	   												<input type="text" name="back_data" style="opacity: 0">
+	   												<input type="text" name="image" style="opacity: 0">
 	   										           											
 				                         		    <div class="loader " style="margin-left: 50%;">
 				                                    <div class="loader-inner ball-scale-multiple certificant-loader">
@@ -139,13 +140,10 @@
 <script type="text/javascript" src="/assets/plugins/counter/jquery.counterup.min.js"></script>
 <script type="text/javascript" src="/assets/plugins/sky-forms-pro/skyforms/js/jquery-ui.min.js"></script>
 <script type="text/javascript" src="/assets/plugins/scrollbar/js/jquery.mCustomScrollbar.concat.min.js"></script>
-<script type="text/javascript" src="/libs/birthday/birthday.js"></script>
-<script type="text/javascript" src="/libs/cityselect/js/jquery.cityselect.js"></script>
 <script type="text/javascript" src="http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js"></script> 
 
 <script src="/libs/plupload-2.1.8/js/plupload.full.min.js"></script>
 
-<script type="text/javascript" src="/libs/plupload-2.1.8/js/i18n/zh_CN.js"></script>
 
 
 
@@ -158,6 +156,8 @@
 
 
   ProfileSocial.createGroup();
+  ProfileSocial.groupForm();
+
   
 
     

@@ -109,13 +109,13 @@ a,a:hover{
     left:0;
     top:-30px;
     margin-left: 0px;
-    width: 300px;
-    height: 300px;
+    width: 200px;
+    height: 200px;
     text-align: center;
   }
   #faceForm .slider-wrapper {
     position: absolute;
-    left: 32%;
+    left: 42%;
     bottom: 25px;
     margin-left: -140px;
 }
@@ -205,7 +205,7 @@ a,a:hover{
   height:auto;
 }
 .col-face {
-	width: 500px;
+	width: 400px;
 	height:560px;
 }
 .col-face .content{

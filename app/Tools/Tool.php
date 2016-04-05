@@ -4,8 +4,9 @@ use Intervention\Image\Facades\Image;
 use Storage;
 use Request;
 use App\China;
+use App\Category;
 
-//工具类 图片上传类
+
 
 
 
@@ -89,6 +90,32 @@ class Tool{
 
 			return  date('Y-m-d H:i',$unixtime);
 		}
+
+	}
+
+	public function _deal_category($main,$parent,$child){
+
+
+		$main_id = Category::where('slug',$main)->first()->id;		
+
+		if(empty($parent)){
+
+			return json("empty");
+		}
+
+		$pid = Category::where('name',$parent)->where('parent',$main_id)->first()->id;
+
+		if(empty($child)){
+
+			return $pid;
+		}else{
+
+			$cid = Category::where('name',$child)->where('parent',$pid)->first()->id;
+
+			return $cid;
+		}
+
+
 
 	}
 

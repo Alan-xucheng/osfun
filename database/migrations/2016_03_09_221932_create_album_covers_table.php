@@ -18,6 +18,7 @@ class CreateAlbumCoversTable extends Migration
             $table->integer('album_id');
             $table->integer('category');//分类
             $table->string('media');// 图文  视频 
+            $table->string('group_id');//圈子ID
             $table->string('type');
             $table->string('title');
             $table->text('desc');

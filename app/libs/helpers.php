@@ -18,7 +18,7 @@ if (! function_exists('_T')) {
      * @param  string  $locale
      * @return string
      */
-    function _T($id,$pack="lang")
+    function _T($id,$pack="chinese")
     {
             return app('translator')->trans($pack.".".$id);
     }
